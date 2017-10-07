@@ -1,0 +1,69 @@
+---
+title: "Calibration"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*.
+
+The code below shows you what your "current directory" is.  This the folder that R is working from. 
+
+```{r}
+getwd()
+```
+Use the "Session" menu in R Studio, and select "Set Working Directory" to navigate to the folder that contains the data for the workshop.  This folder should contain files that include `calibration.csv`.  When you've done that, execute the chunk above to confirm the folder is what you expected.
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
+
+The first thing we need to do, it so load the various `tidyverse` packages.  We do this with the R `library` command. `library` loads code packages so that we can use commands from those packages in our R session:
+
+```{r}
+library('tidyverse')
+```
+Let's load the data first:
+
+```{r}
+calibration = read_csv('calibration.csv')
+calibration
+```
+Next we would like to do a simple scatterplot of the data.  Do do this we will use the `ggplot` function from the `ggplot2` package.  `ggplot2` is part of the `tidyverse` set of packages, so we have already loaded it with our `library('tidyverse')` command above.  Have a look at the command output above to confirm.
+
+
+```{r}
+ggplot(calibration, aes(x=BSA, y=Absorbance)) +
+    geom_point(shape=1)      # Use hollow circles
+```
+We would also like to see a regression line through these points. We do this by adding a `lm` (Linear Model) component to the plot, like this:
+```{r}
+ggplot(calibration, aes(x=BSA, y=Absorbance)) +
+    geom_point(shape=1) +    # Use hollow circles
+    geom_smooth(method=lm)   # linear model regression line
+```
+What is the formula for this line?  We can show this (the least squares regression line) by estimating it again using R's `lm` command (Linear Model again):
+```{r}
+fit = lm(Absorbance ~ BSA, data=calibration)
+summary(fit)
+```
+Notice the Intercept and BSA slope in the `Estimate` column above.
+
+So far we have the line for predicting `Absorbance` from `BSA` - but it's a simple switch to predict `BSA` from `Absorbance`:
+```{r}
+reverse_fit = lm(BSA ~ Absorbance, data=calibration)
+summary(reverse_fit)
+```
+What it the relationship between the estimate of slope for this line, and the estimate for the `Absorbance ~ BSA` line?
+
+We can use this fit to predict `BSA` from other values of `Absorbance`. To do this, we make a new data table with the `Absorbance` values to predict for.  The `tibble` function makes a new data table. We pass it the name of the new column - in our case, `Absorbance`:
+```{r}
+new_absorbance = tibble(Absorbance=c(0.25, 0.04, 0.4))
+new_absorbance
+```
+
+Now we can predict `BSA` values from the new `Absorbance` values:
+
+```{r}
+predict(reverse_fit, new_absorbance)
+```

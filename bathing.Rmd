@@ -1,0 +1,68 @@
+---
+title: "Bathing"
+output: html_notebook
+---
+
+This is another [R Markdown](http://rmarkdown.rstudio.com) Notebook.  
+
+Make sure you've already done the "calibration" notebook.
+
+We load the `tidyverse` packages again:
+
+```{r}
+library('tidyverse')
+```
+
+We load the bathing data:
+
+```{r}
+bathing = read_csv('bathing.csv')
+bathing
+```
+
+We want a bar graph showing the mean coliform concentration for each town.  A bar graph has a `geom_` type of `bar`.  The `geom_bar` type expects some transformation to apply to the data, to get the bar height.  In our case, we want the `coliform_mean` to give the bar height directly, so we don't want to apply any transformation. For this we use `stat='identity` as the transformation to apply, which does nothing:
+
+```{r}
+ggplot(bathing, aes(x = town, y = coliform_mean)) +
+  geom_bar(stat='identity') # use the mean directly for height
+```
+The town name x axis labels are a real mess, because they overlap.  We would like to angle them, so we can read which town is which on the x axis.  Googling will get you the commands you need, but here is what you have to add to rotate the x axis labels:
+
+```{r}
+len = bathing$coliform_mean
+se = bathing$coliform_std
+ggplot(bathing, aes(x = town, y = coliform_mean)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x=element_text(angle=90)) # vertical labels
+```
+We could fiddle with that a bit, to make it prettier, but that's good enough for now.
+
+Finally, we can add the standard deviation to these bars, using the `geom_errorbar` type.  We need to work out the top and bottom of the error bars first though.  The tops are the mean plus the standard deviation, and the bottoms are the mean minus the standard deviation.  To start, we'll get the means and standard deviation as lists (vectors) of numbers:
+
+```{r}
+c_mean = bathing$coliform_mean
+c_mean
+```
+
+```{r}
+c_std = bathing$coliform_std
+c_std
+```
+Next we calculate the tops and bottoms of the error bars.  Notice that `+` and `-` when applied to these vectors (lists), subtracts the number at position 1 from the number at position 1, the number at position 2 from the number at position 2 and so on:
+
+```{r}
+tops = c_mean + c_std
+tops
+```
+```{r}
+bottoms = c_mean - c_std
+bottoms
+```
+Now we can plot our error bars, using the `geom_errorbar` type:
+
+```{r}
+ggplot(bathing, aes(x = town, y = coliform_mean)) +
+  geom_bar(stat="identity") +
+  geom_errorbar(aes(ymin = bottoms, ymax = tops)) +
+  theme(axis.text.x=element_text(angle=90))
+```

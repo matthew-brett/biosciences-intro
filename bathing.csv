@@ -1,4 +1,4 @@
-Bathing Waters,Average Number of coliforms in 100ml sea water,StDev
+town,coliform_mean,coliform_std
 Whitby,720,77.04
 Robin Hoods Bay,1650,177
 Scarborough,800,150.63

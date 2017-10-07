@@ -1,0 +1,58 @@
+---
+title: "Height Weight"
+output: html_notebook
+---
+
+You should have already run the "calibration" and "bathing" notebooks.
+
+Load the `tidyverse` libraries:
+
+```{r}
+library('tidyverse')
+```
+
+Load the height and weight dataset:
+
+```{r}
+hw = read_csv('height_weight.csv')
+hw
+```
+
+Calculate the BMI and add it to the table:
+
+```{r}
+hw['BMI'] = hw$weight / hw$height ^ 2
+hw
+```
+
+Sort by BMI:
+
+```{r}
+sorted_hw = hw[with(hw, order(BMI)), ]
+sorted_hw
+```
+
+Do default histogram of height:
+
+```{r}
+ggplot(hw, aes(x=height)) + 
+  geom_histogram()
+```
+Set the bin width:
+
+```{r}
+ggplot(hw, aes(x=height)) + 
+  geom_histogram(binwidth=0.1)
+```
+Set the bin edges directly:
+
+```{r}
+ggplot(hw, aes(x=height)) + 
+  geom_histogram(breaks=c(1.5, 1.6, 1.7, 1.8, 1.9))
+```
+A frequency table, with given bin widths:
+
+```{r}
+table(cut(hw$height, breaks=c(1.5, 1.6, 1.7, 1.8, 1.9),
+          include.lowest=TRUE))
+```
