@@ -56,3 +56,8 @@ A frequency table, with given bin widths:
 table(cut(hw$height, breaks=c(1.5, 1.6, 1.7, 1.8, 1.9),
           include.lowest=TRUE))
 ```
+
+```{r}
+View(hw)
+```
+
