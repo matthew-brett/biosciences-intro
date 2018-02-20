@@ -1,6 +1,6 @@
 # Introduction to R
 
-This is a short introduction to the R statistical computing language.  R is
+This is a short introduction to the R statistical computing language.  R is a
 very powerful environment and language for statistics and data analysis.  It is
 widely used in Bioscience research, and being able to use R is a skill that
 many employers will value, in Biosciences and beyond.  R is very different from
@@ -10,8 +10,9 @@ major advantages:
 
 * it is much easier to record what you did in your analysis in a way that you
   can check and repeat;  this makes it easier to avoid and to spot mistakes
-  (see The Excel Error that Changed History for one particularly scary
-  example);
+  (see [The Excel Error that Changed
+  History](https://www.bloomberg.com/news/articles/2013-04-18/faq-reinhart-rogoff-and-the-excel-error-that-changed-history)
+  for one particularly scary example);
 * the underlying language gives you great power to adapt and extend your
   analysis; you are using the same tools as other bioscience and statistics and
   data science researchers, so it is easier to collaborate with them, and ask
