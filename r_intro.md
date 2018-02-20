@@ -26,16 +26,20 @@ Next, consider this free online tutorial:
 
 https://campus.datacamp.com/courses/statistical-inference-and-data-analysis.
 
-In particular, have a loot at the first two chapters, which are:
+In particular, have a look at the first two chapters, which are:
 
 * Introduction to R (this will give you some revision, and some new features);
 * Introduction to Data.
 
-After you start the tutorials, the site, DataCamp, will ask you to make free account.
+After you start the tutorials, the site, DataCamp, will ask you to make a free
+account.
 
 We think these two chapters will take you about 3 hours to complete, if you do not rush, and read the instructions carefully.
 
-Now you may want to start using R yourself.  We strongly recommend you use the [R Notebook](https://rmarkdown.rstudio.com/r_notebooks.html) to work in; it is an excellent tool for showing and explaining your analysis as you go, and making it easier for others to read what you did and replicate it.
+Now you may want to start using R yourself.  We strongly recommend you use the
+[R Notebook](https://rmarkdown.rstudio.com/r_notebooks.html) to work in; it is
+an excellent tool for showing and explaining your analysis as you go, and
+making it easier for others to replicate what you did.
 
 To use the Notebook, you will need to install the [R
 language](https://www.r-project.org/) and [R Studio](https://www.rstudio.com)
