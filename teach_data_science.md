@@ -6,15 +6,15 @@ We have been teaching statistics in more or less the same way since Ronald
 Fisher invented the analysis of variance in the 1920s. Many of us would agree
 that this teaching has not been a great success.  Standard statistical methods
 such as t-tests and ANOVA rely on fairly sophisticated mathematics that we
-cannot hope to teach.  There is too much mathematics to cover, and it quickly
-becomes obvious to the students that the mathematics is well removed from the
-questions they want to answer. Until recently, we had little choice but to
-resort to take-my-word-for-it general descriptions of what the common tests are
-doing, followed by recipes as to when the tests can be applied and situations
-in which they can be misleading.   As a result, it is not at all surprising
-that many students find statistics uncomfortable and unsatisfying, and it is
-difficult for them to reason about their analysis when they start to work with
-their own data.
+cannot hope to teach.  There is too much mathematics to cover, and it would
+quickly become obvious to the students that the mathematics is well removed
+from the questions they want to answer. Until recently, we had little choice
+but to resort to take-my-word-for-it general descriptions of what the common
+tests are doing, followed by recipes as to when the tests can be applied and
+situations in which they can be misleading.   As a result, it is not at all
+surprising that many students find statistics uncomfortable and unsatisfying,
+and it is difficult for them to reason about their analysis when they start to
+work with their own data.
 
 Partly in response to this problem, statistics education is undergoing
 a revolution, under the banner of "data science".    Data science is a term
