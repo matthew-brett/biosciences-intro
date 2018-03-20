@@ -1,0 +1,242 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. 
+
+You know the drill now, but you can add a new chunk by clicking the *Insert
+Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+We first read the dataset containing information about the passengers (not
+crew) who were on the RMS Titanic when it sank.
+
+See the [Vanderbuilt biostatistics
+datasets](http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets) for more
+detail on this dataset.
+
+You might also want to look at [Encylopedia
+Titanica](https://www.encyclopedia-titanica.org/titanic-statistics.html) for
+more background.
+
+```{r}
+# Read the dataset directly from the URL.  After this, the variable "titanic"
+# is a data frame.
+titanic <- read.csv("http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic3.csv",
+             stringsAsFactors = FALSE)
+```
+
+Notice the option  `stringsAsFactors = FALSE`.  This prevents R from assuming
+that any columns that contain character strings, are factors.  For example,
+you'll see soon that the passengers' names are strings, but we don't want to
+make that into a factor (there would be one level for each passenger).
+
+Next we convert some of the columns to factors.  Make sure you execute this
+chunk so the columns are correctly set as factors.
+
+```{r}
+# pclass is the passenger class (1, 2 or 3 for first, second, third).
+titanic$pclass <- factor(titanic$pclass)
+# sex is a passenger gender ('male' or 'female')
+titanic$sex <- factor(titanic$sex)
+# survived is whether the passenger survived or not 0 (Lost) or 1 (Saved).
+titanic$survived <- factor(titanic$survived)
+# We set the level labels for the survived column.
+levels(titanic$survived) <- c('Lost', 'Saved')
+# embarked is the port at which the passenger came onto the ship.
+titanic$embarked <- factor(titanic$embarked, exclude=c(""))
+levels(titanic$embarked) <- c('Cherbourg', 'Queenstown', 'Southampton')
+```
+
+Show the names of the columns in the data frame:
+
+```{r}
+names(titanic)
+```
+
+You might want to inspect the data frame as a spreadsheet using RStudio.  To do
+this, run the command `View(titanic)`.  See the note at the end about putting
+the `View` command in a chunk in your notebook, rather than running at the R
+console.
+
+Show the number of rows (passengers) and columns (variables), using the `dim`
+command:
+
+```{r}
+#- Use "dim" to show the number of rows and columns of the "titanic" data frame.
+#- 5 marks / 100 (total 5 so far).
+```
+
+Confirm that the `embarked` column of the data frame is in fact a factor, by
+showing the levels of that column:
+
+```{r}
+#- Show the levels of the "embarked" column of the data frame.
+#- If you get NULL here, make sure you've run the cell above that makes the factors.
+#- 10 marks / 100 (total 15 so far).
+```
+
+Show the first 6 passengers (rows) in the data frame using the `head` function:
+
+```{r}
+#- Show the top 6 passengers with the "head" function.
+#- 5 marks / 100 (total 20 so far).
+```
+
+As you get older, you get richer (at least, that's how it seems to us, your
+instructors).  So, are first class passengers generally older than third class
+passengers?
+
+Do a box plot of the ages of the passengers as a function of class.  Have a
+look to see if the first class passengers tend to be older.
+
+Hint - make sure you've got all three passenger classes on your x axis.  You'll
+probably need the `~` syntax that you saw in the tutorial.  Remember, you can
+read the `~` operator as "as a function of".
+
+```{r}
+#- Do a box plot of the distribution of ages as a function of passenger class.
+#- 10 marks / 100 (total 30 so far).
+```
+
+I am sure we all believe that female passengers were more likely to be put onto
+the lifeboats. Now we will check if that's really true.
+
+Use the `table` function to show the counts of male and female passengers
+overall.  If you can't remember the column names, have a look at the result of
+the `names(titanic)` chunk above, or the column names in the View tab.
+
+```{r}
+#- Use "table" to show the counts of male and female passengers.
+#- 5 marks / 100 (total 35 so far).
+```
+
+Now use the `survived` column to give a table with a breakdown of how many male
+and female passengers survived.  Show the table.  Check the tutorial for how to
+break down counts by more than one column.
+
+```{r}
+#- Make a new table called "mf_survived" with the numbers of men and women who
+#- survived.  Show the table.
+#- 10 marks / 100 (total 45 so far).
+```
+
+Show these counts graphically as proportions using `mosaicplot`. Check the help
+on `mosaicplot` for the input you need.  See whether you agree that women were
+more likely to be saved than men.
+
+```{r}
+#- Make a graphical plot of the table of male / female survival numbers with
+#- "mosaicplot".
+#- 5 marks / 100 (total 50 so far).
+```
+
+We also have a strong suspicion that the first class passengers had a better
+chance of being saved than the second or third class passengers.  Let's check
+if that is true.
+
+First make a table breaking down the counts in each passenger class by whether
+they survived.  Show that table in the notebook.
+
+```{r}
+#- Make a new table called "pclass_survived" with the numbers of first, second,
+#- third class passengers who survived.  Show the table.
+#- 10 marks / 100 (total 60 so far).
+```
+
+Show the proportions who survived by passenger class graphically using
+`mosaicplot`.
+
+```{r}
+#- Show the table of survival numbers graphically with "mosaicplot"
+#- 5 marks / 100 (total 65 so far).
+```
+
+We also think that children had a better chance of being saved.  We guess that
+children in first class are a bit more likely to be saved than children in
+third class.  To look at this we first use the `subset` command to make a new
+data frame that only includes the passengers with ages less than 15.  Check
+back at the tutorial for how to select a subset of a data frame according to a
+condition like "age less than 15".  Show the first 6 cases of this new data
+frame to check you do in fact have the passengers younger than 15.
+
+```{r}
+#- Make a new data frame called "children" containing only the passengers
+#- younger than 15.  Use the subset command.  Then, use "head" to check that you
+#- have passengers younger than 15.
+#- 10 marks / 100 (total 75 so far).
+```
+
+Use your new `children` data frame to make a table breaking down the counts of
+children in the different passenger classes, by whether or not they survived.
+Show the table.
+
+```{r}
+#- Use the "children" data frame to make a table called "pclass_children"
+#- giving counts of children for each passenger class, broken down by whether
+#- or not they survived.  Show the table.
+#- 5 marks / 100 (total 80 so far).
+```
+
+Show the `pclass_children` table you've just made with `mosaicplot`.  Are
+higher-class children more likely to survive?
+
+```{r}
+#- Use "mosaicplot" to show the proportions of children of each class who survived.
+#- 5 marks / 100 (total 85 so far).
+```
+
+Finally, we might wonder if the crew of the Titanic were national chauvinists.
+Did they, for example, prefer to save the passengers from good old Southampton,
+over those from Ireland (Queenstown) or France (Cherbourg)?  The passengers'
+survival also depend on where they embarked?
+
+We already know that the chances of being saved were better if you were a
+female, and in the higher ticket classes.  To control for that, let us first
+select the women in third class.  Use the `subset` function to select the
+passengers that are `third` class AND `female`.  Refer back to the tutorial for
+how to combine conditions like this using the subset function.
+
+```{r}
+#- Use "subset" to make a new data frame "third_class_female" that contains all
+#- the passengers that are both female and in third class.  Show the first 6
+#- rows of this new data frame.
+#- 5 marks / 100 (total 90 so far).
+```
+
+Make a table that breaks down counts of new `third_class_female` data frame by
+where they embarked, and whether they survived. Show this table.
+
+```{r}
+#- Use the "third_class_female" data frame to make a table called
+#- "port_by_saved" giving counts of third class female passengers for each port
+#- they embarked, broken down by whether or not they survived.  Show the table.
+#- 5 marks / 100 (total 95 so far).
+```
+
+Show the proportions in this table with "mosaicplot".  Did the crew prefer to
+save English women?
+
+```{r}
+#- Show the new "port_by_saved" table with a mosaicplot
+#- 5 marks / 100 (total 100 so far).
+```
+
+That's it.  Before you submit:
+
+* Remember that you should submit the `.Rmd` file, not the `.nb.html` file, nor
+  any of the other files that the R notebook makes.  Make sure your notebook
+  file does have the extension `.Rmd`.
+* Before you submit this notebook for marking, make sure that all the chunks
+  execute correctly.  To do that, go to the Run button at the top of the
+  notebook, and click "Restart R and Clear Output".  Then go to the top of the
+  notebook, and run each chunk in turn, to make sure that they run without
+  error, and give you the output you expect.  *Remember, we're going to run an
+  automated marking script over this file, so it has to execute correctly, for
+  you to get the marks*.   You can make your life a bit easier by making sure
+  that you don't have any `View` commands in your notebook chunks.   If you
+  don't have any of these, you can go to the Run button and choose "Restart R
+  and run all chunks" - this will run the whole notebook.   Then you can check
+  the output is OK in the notebook, and submit.  If you do have `View`
+  commands, this doesn't work because the notebook execution blocks as it does
+  the `View`.  In that case, you have to run each chunk one by one.

@@ -1,0 +1,161 @@
+---
+title: "BIO240 first notebook"
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document: default
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code.
+
+*Please don't delete any comments in the R chunks  These are the lines beginning with `#`.  We will use the comments when we do the marking, which we do by running the code and checking the output, with an automated script.  If you delete the comments, we won't be to tell which chunk is running, and we can't give you the marks*.
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*.   The code below shows the *working directory*.  This is the directory that R is working in.
+
+```{r}
+getwd()
+```
+
+As you probably know by now, you can add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
+
+In this Notebook, we will ask you to "show" some values.  For example, imagine you had already set a variable `a` to contain the value 10:
+
+```{r}
+a <- 10
+```
+
+To "show"" the value, you put the variable on a line on its own, at the end of the chunk, like this:
+
+```{r}
+a
+```
+
+When you execute the chunk, the value appears after the chunk.
+
+# Getting the survey data
+
+We are going to work on some animal survey data.  Run this chunk to load the data file from the web.
+
+```{r}
+# Download dataset to working directory
+download.file("https://ndownloader.figshare.com/files/2292169",
+              "survey_data.csv")
+```
+
+The command above gets the file from the given URL, and saves it as `survey_data.csv` in R's working directory.  This is the directory you saw above with `getwd()`.
+
+Has the file arrived?  We `list` the file names present in the working directory. You should see a file called `surveys.csv` in this list:
+
+```{r}
+list.files()
+```
+
+After you've run the chunks above, and downloaded the file, you might want to comment out the chunk that downloads the file, so the notebook will still run without an internet connection, as in:
+
+```{r}
+# Download dataset to working directory
+# download.file("https://ndownloader.figshare.com/files/2292169",
+#               "survey_data.csv")
+```
+
+Now we are going to load the file into memory, as an R *data frame*:
+
+```{r}
+surveys <- read.csv('survey_data.csv')
+```
+
+After executing the chunk above, you should have a new variable called `surveys`, of type *data frame*. View it with the following command.  The view will open in a new tab.  Switch back to this Notebook tab to continue:
+
+```{r}
+View(surveys)
+```
+
+When you look at the `View` of the data frame, you may have noticed that it has columns including "hindfoot_length" and "weight". You can see all the column names with:
+
+```{r}
+names(surveys)
+```
+
+# Plotting the survey data
+
+Use your [Code School](http://tryr.codeschool.com) skills to do a scatterplot with "weight" on the x-axis and "hindfoot_length" on the y-axis:
+
+```{r}
+#- Here you type the commands to plot hindfoot_length against weight
+#- 20 marks / 100
+
+```
+
+Your plot may make you suspicious that there are some subgroups in the data.   In fact these data are for several different species.  The column "species_id" has the identifier code for each species.  When R loaded this dataset, it decided that the "species_id" column was a `factor`.
+
+Show the levels of the factor by filling out the cell below.  See above for what we mean by "show":
+
+```{r}
+#- show the levels of the species_id factor
+#- 10 marks / 100 (total 30 so far)
+
+```
+
+You didn't cover this in Code School, but this is how we make a new data frame, containing only the rows with "PB"" as the "species_id".  "PB" is Chaetodipus Baileyi - [Bailey's pocket mouse](https://en.wikipedia.org/wiki/Bailey's_pocket_mouse):
+
+```{r}
+pb_surveys <- surveys[surveys$species_id == 'PB',]
+```
+
+Check this worked by looking at the new data frame with `View`:
+
+```{r}
+View(pb_surveys)
+```
+
+# Summary statistics, regression and correlation
+
+Show the mean of the "weight" column in this data frame:
+
+```{r}
+# - Show the mean of the "weight" column in the PB data frame
+#- 15 marks / 100 (total 45 so far)
+
+```
+
+Some of the weights are NA; this probably means that the weight was not recorded for that animal. Remember your Code School reading, and repeat the mean calculation, but dropping the NA values:
+
+```{r}
+# - Show the mean of the "weight" column in the PB data frame, without NAs
+#- 15 marks / 100 (total 60 so far)
+
+```
+
+Now do a scatterplot of "hindfoot_length" (y axis) against "weight" (x axis), for this new data frame:
+
+```{r}
+#- Plot hindfoot_length against weight for PB data frame
+#- 10 marks / 100 (total 70 so far)
+
+```
+
+Do a scatterplot of "hindfoot_length" (y axis) against "weight" (x axis) for the PB cases again, but add the best fit (least squares) line.  If you can't remember how to do that, check out the Code School section on Real World Data:
+
+```{r}
+#- Plot hindfoot_length against weight for PB data frame
+
+# - Show the least-squares (Linear Model) line on the plot.
+#- 15 marks / 100 (total 85 so far)
+
+
+```
+
+Next calculate the correlation between "weight" and "hindfoot_length" for these PB cases.  For the correlation, we have to decide what to do with the NA values.  Use the help tab at the right of the R studio interface, to look at the help for "cor".  See if you can work out how to ask `cor` to select only the cases which are "pairwise complete" - that is - neither "weight" nor "hindfoot_length" is missing. Show the correlation coefficient.
+
+```{r}
+#- Show correlation between weight and hindfoot_length for PB cases.
+#- Ask cor to restrict itself to rows where neither column has an NA.
+#- 15 marks / 100 (total 100 so far)
+
+```
+
+# Before you submit
+
+Before you submit this notebook for marking, make sure that all the chunks execute correctly.  To do that, go to the Run button at the top of the notebook, and click "Restart R and Clear Output".  Then go to the top of the notebook, and run each chunk in turn, to make sure that they run without error, and give you the output you expect.  *Remember, we're going to run an automated marking script over this file, so it has to execute correctly, for you to get the marks*.
