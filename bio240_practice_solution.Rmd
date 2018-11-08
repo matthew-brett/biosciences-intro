@@ -49,7 +49,6 @@ Show the first 6 passengers (rows) in the data frame using the `head` function:
 
 ```{r}
 #- Show the top 6 passengers with the "head" function.
-#- 5 marks / 100 (total 20 so far).
 head(titanic)
 ```
 
