@@ -41,7 +41,6 @@ command:
 
 ```{r}
 #- Use "dim" to show the number of rows and columns of the "titanic" data frame.
-#- 5 marks / 100 (total 5 so far).
 dim(titanic)
 ```
 
@@ -53,9 +52,42 @@ Show the first 6 passengers (rows) in the data frame using the `head` function:
 head(titanic)
 ```
 
+Do a histogram of the passengers ages.  That's the `age` column of the `titanic` data frame.
+
+```{r}
+hist(titanic$age)
+```
+
+Use the `mean` function to show the mean age of the passengers:b
+
+```{r}
+#- Show the default result of calculating the mean passenger age
+mean(titanic$age)
+```
+
+Oops.  Now drop the `NA` values, in the mean calculation, with the `na.rm` option:
+
+```{r}
+#- Show the result of calculating the mean passenger age, dropping NA values
+mean(titanic$age, na.rm=TRUE)
+```
+
+Now do a histogram of the fare that the passenger paid.  The column name is `fare`.
+
+```{r}
+hist(titanic$fare)
+```
+
+
 As you get older, you get richer (at least, that's how it seems to us, your
-instructors).  So, are first class passengers generally older than third class
-passengers?
+instructors).  So, did the older passengers pay a higher fare?  Do a plot to investigate.
+
+```{r}
+#- Plot age (x-axis) against fare (y-axis)
+plot(titanic$age, titanic$fare)
+```
+
+Not very convincing!
 
 That's it.  Before you submit:
 
