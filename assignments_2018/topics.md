@@ -29,7 +29,7 @@ They surely need to cover:
 * Absolute `abs`
 * (`load` of RData)
 * (continuous, discrete, categorical, ordinal variables)
-* `mean, var, media, summary`
+* `mean, var, median, summary`
 * `table`
 * indexing - `dim(cdc)[1]`
 * indexing data frames (with integers)
