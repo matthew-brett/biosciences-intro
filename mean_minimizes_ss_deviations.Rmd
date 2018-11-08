@@ -5,7 +5,7 @@ jupyter:
       extension: .Rmd
       format_name: rmarkdown
       format_version: '1.0'
-      jupytext_version: 0.8.1
+      jupytext_version: 0.8.2
   kernelspec:
     display_name: Python 3
     language: python
@@ -22,32 +22,62 @@ jupyter:
     version: 3.6.5
 ---
 
+The mean $\frac{1}{N} \sum x_i$ is the value $\mu$ such that $S$ is minimized, where $S = \sum (x_i - \mu)^2$
+
+
+The general procedure is to differentiate $\sum (x_i - \mu)^2$ with respect to $\mu$, and find where this differentiation is 0, to get the minimum.   We find the minimum is where $\mu = \frac{1}{N} \sum x_i$
+
 ```{python}
-from sympy import *
+# Sympy is Python's symbolic mathematics library.
+from sympy import (symbols, Sum, diff, Eq, IndexedBase, Add,
+                   simplify, expand)
+# Render Sympy equations nicely in the notebook
+from sympy.interactive import printing
+printing.init_printing()
+```
+
+Build the equation for the sum of squared deviations.
+
+```{python}
+i, n, mu = symbols('i, n, mu')
+# The vector of observations
+x = IndexedBase('x')
 ```
 
 ```{python}
-x_i, n, mu = symbols('x_i, n, mu')
+ss = Sum((x[i] - mu)**2, (i, 1, n))
+ss
 ```
 
-```{python}
-ss = Sum((x_i - mu)**2, (x_i, 1, n))
-```
+Expand:
 
 ```{python}
-d = diff(ss, mu)
+ess = expand(ss)
+ess
+```
+
+Simplify the terms:
+
+```{python}
+simple_ess = Add(*[simplify(term) for term in ess.args])
+simple_ess
+```
+
+Differentiate this equation with respect to $\mu$:
+
+```{python}
+d = diff(simple_ess, mu)
 d
 ```
 
-```{python}
-equation = Eq(d, 0)
-equation
-```
+We find the minimum by setting equal to 0.  The expression will be 0 when the left term equals the right term:
 
 ```{python}
-expand(equation)
+minimized = Eq(d.args[1], -d.args[0])
+minimized
 ```
 
-```{python}
-simplify(Sum(2*mu, (x_i, 1, n)))
-```
+Simplify a little:
+
+
+Divide left and right by 2.  Simplify the left to $n\mu$.  Simplify the right to $\sum_{i=1}^n x_i$.  Divide both sides by $n$. You get $\mu = \frac{1}{N} \sum x_i$
