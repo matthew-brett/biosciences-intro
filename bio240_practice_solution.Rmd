@@ -28,6 +28,7 @@ titanic <- read.csv("http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/tit
 Show the names of the columns in the data frame:
 
 ```{r}
+#- Show the names, with the "names" function.
 names(titanic)
 ```
 
@@ -52,9 +53,11 @@ Show the first 6 passengers (rows) in the data frame using the `head` function:
 head(titanic)
 ```
 
-Do a histogram of the passengers ages.  That's the `age` column of the `titanic` data frame.
+Do a histogram of the passengers ages.  That's the `age` column of the
+`titanic` data frame.
 
 ```{r}
+#- Show a histogram of the patients' ages.
 hist(titanic$age)
 ```
 
@@ -75,9 +78,9 @@ mean(titanic$age, na.rm=TRUE)
 Now do a histogram of the fare that the passenger paid.  The column name is `fare`.
 
 ```{r}
+#- Show a histogram of the fares paid.
 hist(titanic$fare)
 ```
-
 
 As you get older, you get richer (at least, that's how it seems to us, your
 instructors).  So, did the older passengers pay a higher fare?  Do a plot to investigate.
