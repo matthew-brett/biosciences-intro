@@ -25,12 +25,12 @@ jupyter:
 The mean $\frac{1}{N} \sum x_i$ is the value $\mu$ such that $S$ is minimized, where $S = \sum (x_i - \mu)^2$
 
 
-The general procedure is to differentiate $\sum (x_i - \mu)^2$ with respect to $\mu$, and find where this differentiation is 0, to get the minimum.   We find the minimum is where $\mu = \frac{1}{N} \sum x_i$
+The general procedure is to differentiate $\sum (x_i - \mu)^2$ with respect to $\mu$, and find where this derivative is 0, to get the minimum.   We find the minimum is where $\mu = \frac{1}{N} \sum x_i$
 
 ```{python}
 # Sympy is Python's symbolic mathematics library.
-from sympy import (symbols, Sum, diff, Eq, IndexedBase, Add,
-                   simplify, expand)
+from sympy import (symbols, summation, diff, IndexedBase, Add, Eq,
+                   simplify, expand, solve)
 # Render Sympy equations nicely in the notebook
 from sympy.interactive import printing
 printing.init_printing()
@@ -39,13 +39,15 @@ printing.init_printing()
 Build the equation for the sum of squared deviations.
 
 ```{python}
-i, n, mu = symbols('i, n, mu')
+# Symbols
+i, n = symbols('i, n', integer=True, positive=True)
+mu = symbols('mu')
 # The vector of observations
 x = IndexedBase('x')
 ```
 
 ```{python}
-ss = Sum((x[i] - mu)**2, (i, 1, n))
+ss = summation((x[i] - mu)**2, (i, 1, n))
 ss
 ```
 
@@ -59,7 +61,7 @@ ess
 Simplify the terms:
 
 ```{python}
-simple_ess = Add(*[simplify(term) for term in ess.args])
+simple_ess = Add(*[simplify(term).doit() for term in ess.args])
 simple_ess
 ```
 
@@ -70,14 +72,16 @@ d = diff(simple_ess, mu)
 d
 ```
 
-We find the minimum by setting equal to 0.  The expression will be 0 when the left term equals the right term:
+We find the minimum by setting equal to 0, and solving for $\mu$. 
 
 ```{python}
-minimized = Eq(d.args[1], -d.args[0])
-minimized
+# Set derivative to 0
+to_solve = Eq(d, 0)
+to_solve
 ```
 
-Simplify a little:
+Solve for $\mu$, and we get the formula for the mean:
 
-
-Divide left and right by 2.  Simplify the left to $n\mu$.  Simplify the right to $\sum_{i=1}^n x_i$.  Divide both sides by $n$. You get $\mu = \frac{1}{N} \sum x_i$
+```{python}
+solve(to_solve, mu)
+```
