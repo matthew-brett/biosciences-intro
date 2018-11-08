@@ -1,0 +1,77 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. 
+
+You can add a new chunk by clicking the *Insert Chunk* button on the toolbar or
+by pressing *Cmd+Option+I*.
+
+We first read the dataset containing information about the passengers (not
+crew) who were on the RMS Titanic when it sank.
+
+See the [Vanderbuilt biostatistics
+datasets](http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets) for more
+detail on this dataset.
+
+You might also want to look at [Encylopedia
+Titanica](https://www.encyclopedia-titanica.org/titanic-statistics.html) for
+more background.
+
+```{r}
+# Read the dataset directly from the URL.  After this, the variable "titanic"
+# is a data frame.
+titanic <- read.csv("http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic3.csv")
+```
+
+Show the names of the columns in the data frame:
+
+```{r}
+names(titanic)
+```
+
+You might want to inspect the data frame as a spreadsheet using RStudio.  To do
+this, run the command `View(titanic)`.  See the note at the end about putting
+the `View` command in a chunk in your notebook, rather than running at the
+R console.
+
+Show the number of rows (passengers) and columns (variables), using the `dim`
+command:
+
+```{r}
+#- Use "dim" to show the number of rows and columns of the "titanic" data frame.
+#- 5 marks / 100 (total 5 so far).
+dim(titanic)
+```
+
+Show the first 6 passengers (rows) in the data frame using the `head` function:
+
+```{r}
+#- Show the top 6 passengers with the "head" function.
+#- 5 marks / 100 (total 20 so far).
+head(titanic)
+```
+
+As you get older, you get richer (at least, that's how it seems to us, your
+instructors).  So, are first class passengers generally older than third class
+passengers?
+
+That's it.  Before you submit:
+
+* Remember that you should submit the `.Rmd` file, not the `.nb.html` file, nor
+  any of the other files that the R notebook makes.  Make sure your notebook
+  file does have the extension `.Rmd`.
+* Before you submit this notebook for marking, make sure that all the chunks
+  execute correctly.  To do that, go to the Run button at the top of the
+  notebook, and click "Restart R and Clear Output".  Then go to the top of the
+  notebook, and run each chunk in turn, to make sure that they run without
+  error, and give you the output you expect.  *Remember, we're going to run an
+  automated marking script over this file, so it has to execute correctly, for
+  you to get the marks*.   You can make your life a bit easier by making sure
+  that you don't have any `View` commands in your notebook chunks.   If you
+  don't have any of these, you can go to the Run button and choose "Restart R
+  and run all chunks" - this will run the whole notebook.   Then you can check
+  the output is OK in the notebook, and submit.  If you do have `View`
+  commands, this doesn't work because the notebook execution blocks as it does
+  the `View`.  In that case, you have to run each chunk one by one.
