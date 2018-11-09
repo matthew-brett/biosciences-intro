@@ -1,0 +1,68 @@
+---
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.0'
+      jupytext_version: 0.8.4
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+  language_info:
+    codemirror_mode:
+      name: ipython
+      version: 3
+    file_extension: .py
+    mimetype: text/x-python
+    name: python
+    nbconvert_exporter: python
+    pygments_lexer: ipython3
+    version: 3.7.0
+---
+
+# On t-tests
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+# %matplotlib inline
+```
+
+```{python}
+before = np.array([101.  ,  90.98, 100.71,  95.95, 100.93,  98.38,  92.65,  95.05,
+       101.82,  99.2 ,  88.12,  95.41,  99.57, 128.31, 115.3 , 116.27,
+       102.  , 106.18,  85.84, 101.75,  94.95,  95.9 ,  96.87,  94.52,
+       107.03,  94.47,  94.72, 116.62,  80.65, 103.56, 119.04, 102.53,
+       121.72,  98.15,  97.54,  80.87,  75.67,  97.17,  96.18,  86.32,
+       120.76,  91.51, 113.58,  90.23,  81.83, 108.4 ,  97.43, 107.13,
+       108.88, 107.66])
+```
+
+```{python}
+after = np.array([101.72,  91.53,  99.24,  98.05, 102.06,  99.69,  94.75,  95.91,
+       102.1 ,  99.1 ,  88.91,  93.98,  98.99, 128.67, 115.9 , 115.85,
+       102.42, 106.13,  88.79, 103.36,  98.26,  97.36,  97.42,  95.21,
+       107.67,  94.94,  95.68, 119.16,  80.82, 105.91, 120.47, 104.25,
+       123.18,  98.9 ,  97.08,  83.88,  76.46,  97.35,  99.28,  87.32,
+       122.12,  93.85, 114.71,  90.77,  82.03, 109.07,  98.95, 107.75,
+       109.92, 107.54])
+```
+
+```{python}
+plt.hist(before);
+```
+
+```{python}
+plt.hist(after);
+```
+
+```{python}
+difference = after - before
+difference
+```
+
+```{python}
+plt.hist(difference);
+```
