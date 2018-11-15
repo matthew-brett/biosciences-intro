@@ -22,7 +22,7 @@ jupyter:
     version: 3.6.5
 ---
 
-The mean $\frac{1}{N} \sum x_i$ is the value $\mu$ such that $S$ is minimized, where $S = \sum (x_i - \mu)^2$
+The mean $\frac{1}{N} \sum x_i$ is the value $\mu$ such that the sum of squared deviations $S$ is miminized.  Thus $S = \sum (x_i - \mu)^2$.
 
 
 The general procedure is to differentiate $\sum (x_i - \mu)^2$ with respect to $\mu$, and find where this derivative is 0, to get the minimum.   We find the minimum is where $\mu = \frac{1}{N} \sum x_i$
