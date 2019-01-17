@@ -1,0 +1,261 @@
+---
+title: "BIO240 first notebook"
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document: default
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you
+execute code within the notebook, the results appear beneath the code.
+
+*Please don't delete any comments in the R chunks  These are the lines
+beginning with `#`.  We will use the comments when we do the marking, which we
+do by running the code and checking the output, with an automated script.  If
+you delete the comments, we won't be to tell which chunk is running, and we
+can't give you the marks*.
+
+Try executing this chunk by clicking the *Run* button within the chunk or by
+placing your cursor inside it and pressing *Cmd+Shift+Enter*.
+
+
+```{r}
+# A little calculation, to warm up.
+42 * 2
+```
+
+As you probably know by now, you can add a new chunk by clicking the *Insert
+Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be
+saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to
+preview the HTML file).
+
+In this Notebook, we will ask you to "show" some values.  For example, imagine
+you had already set a variable `a` to contain the value 10:
+
+```{r}
+a <- 10
+```
+
+To "show"" the value, you put the variable on a line on its own, at the end of
+the chunk, like this:
+
+```{r}
+a
+```
+
+When you execute the chunk, the value appears after the chunk.
+
+## Introducing the data
+
+The Noteobook uses the same data that you have already seen in the [R
+from scratch](https://www.datacamp.com/courses/r-from-scratch)
+tutorial.
+
+As you may remember from the tutorial, this dataset is a subset of a
+larger dataset from the World Bank on gender and inequality:
+<https://data.worldbank.org/data-catalog/gender-statistics>.
+
+The subset is a selection of variables for every country. For each
+variable, we have taken the mean of all available values from 2012
+through 2016.
+
+As in the tutorial, we need to load the file into memory, as an R
+*data frame*:
+
+```{r}
+gender_data <- read.csv('http://bit.ly/gender-stats-data')
+```
+
+After executing the chunk above, you should have a new variable called
+`gender_data`, of type *data frame*.
+
+If you want to get a spreadsheet view of the data, you can use the `View` function, as in the chunk below.
+
+The view will open in a new tab.  Switch back to this Notebook tab to
+continue:
+
+```{r}
+View(gender_data)
+```
+
+When you look at the `View` of the data frame, you will see that it
+has the column names that you know from the tutorial.  You can see all
+the column names with:
+
+```{r}
+names(gender_data)
+```
+
+Here are the column names with a brief description of what they mean:
+
+* `fert_rate`: Fertility rate, total (births per woman).
+* `gdp`: GDP (current US\$).
+* `health_exp_per_cap`: Health expenditure per capita, PPP (constant 2011 international \$).
+* `health_exp_pub`: Health expenditure, public (% of GDP).
+* `prim_ed_girls`: Primary education, pupils (% female).
+* `mat_mort_ratio`: Maternal mortality ratio (modeled estimate, per 100,000 live births).
+* `population`: Population, total.
+
+## Exploring the data
+
+Our hypothesis is that there may be some relationship between the
+amount of public money that a country spends on health
+(`health_exp_pub`), and the maternal mortality ratio
+(`mat_mort_ratio`).
+
+Because you are now have some training in data analysis, you want to
+explore the data first.
+
+A first step is to look at the distributions of the values for each
+column, using histograms.
+
+First show the histogram for the `health_exp_pub` column:
+
+```{r}
+#- Type the command to show a histogram of the 'health_exp_pub' column of
+#- the 'gender_data' data frame.
+#- 10 marks / 100 (total 10 so far).
+```
+
+Next show the histogram for the `mat_mort_ratio` column:
+
+```{r}
+#- Type the command to show a histogram of the 'mat_mort_ratio' column of
+#- the 'gender_data' data frame.
+#- 5 marks / 100 (total 15 so far).
+```
+
+Use the `median` function to show that the default median value for
+`health_exp_pub` is `NA` (Not Available):
+
+```{r}
+#- Use the 'median' function to show that the median value for the
+#- `health_exp_pub` column of 'gender_data' is NA
+#- 5 marks / 100 (total 20 so far).
+```
+
+This NA value means that one or more of the `health_exp_pub` values are NA.
+
+Remember your "R from scratch" reading, and repeat the median calculation, but
+dropping the NA values:
+
+```{r}
+#- Type the command to show the median value for the
+#- `health_exp_pub` column, after removing the NA values.
+#- 10 marks / 100 (total 30 so far).
+```
+
+Show the median value for the `mat_mort_ratio` column, after dropping
+the NA values:
+
+```{r}
+#- Type the command to show the median value for the
+#- `mat_mort_ratio` column, after removing the NA values.
+#- 5 marks / 100 (total 35 so far).
+```
+
+## Plotting the variables
+
+Plot the `health_exp_pub` column against the `mat_mort_ratio` column.
+The data from the `health_exp_pub` column should be on the x axis, and
+the data from the `mat_mort_ratio` column should be on the y axis.
+
+```{r}
+#- Type the commands to plot values in the 'health_exp_pub' column
+#- against the `mat_mort_ratio` values.
+#- 15 marks / 100 (total 50 so far).
+```
+
+## Calculating public health expenditure per person
+
+Have a look at the definition of `health_exp_pub` above - it is public health
+expenditure as a percentage of the country's [Gross Domestic
+Product](https://en.wikipedia.org/wiki/Gross_domestic_product) (GDP).
+
+Maybe that is not a good measure to use, to predict maternal mortality.  Maybe
+the key measure is not the percentage of the GDP spent on health, but the
+public dollars spent per person (per capita).
+
+You need to calculate this number, for each row (and therefore, each country).
+
+Start by dividing `health_exp_pub` by 100, to get public health expenditure as
+a *proportion* of GDP.  The chunk below makes a new variable, where every
+element in the `health_exp_pub` column has been divided by 100. Run it to get
+the new variable:
+
+```{r}
+# Calculate public health expenditure as proportion of GDP
+# Run this chunk to create the variable.
+health_exp_pub_prop <- gender_data$health_exp_pub / 100
+```
+
+You can check this calculation by showing the median of the
+`health_exp_pub_prop` variable, after removing the `NA` values.  It should be
+same as the median of the `health_exp_pub` column above, but divided by 100.
+
+```{r}
+#- Type the command to show the median value for the
+#- `health_exp_pub_prop` variable, after removing the NA values.
+#- 5 marks / 100 (total 55 so far).
+```
+
+Next, make a new variable called `health_exp_pub_total`, by multiplying the
+values in your `health_exp_pub_prop` variable by the values in the `gdp` column
+of `gender_data`.  This gives you the total public health expenditure.
+
+```{r}
+#- Create a new variable 'health_exp_pub_total' that contains the
+#- `health_exp_pub_prop` variable multiplied by the 'gdp' column of
+#- 'gender_data'.
+#- Your code will start with 'health_exp_pub_total <-'
+#- 10 marks / 100 (total 65 so far).
+```
+
+Finally, make another new variable, `health_exp_pub_per_cap`, that contains the
+result of dividing the values in `health_exp_pub_total` by the values in the
+`population` column of `gender_data`.  This is the public health expenditure
+per person (per _capita_), in dollars.
+
+```{r}
+#- Create a new variable 'health_exp_pub_per_cap' that contains the
+#- `health_exp_pub_total` variable divided by the 'population' column of
+#- 'gender_data'.
+#- Your code will start with 'health_exp_pub_per_cap <-'
+#- 10 marks / 100 (total 75 so far).
+```
+
+Show a histogram of the values in `health_exp_pub_per_cap`:
+
+```{r}
+#- Show a histogram of the values in 'health_exp_pub_per_cap`.
+#- 10 marks / 100 (total 85 so far).
+```
+
+Show the median of the values in `health_exp_pub_per_cap`, with the `NA` values removed:
+
+```{r}
+#- Show the median of the values in 'health_exp_pub_per_cap`, after removing
+#- the NA values.
+#- 5 marks / 100 (total 90 so far).
+```
+
+Plot the `health_exp_pub_per_cap` values against the values in the
+`mat_mort_ratio` column of `gender_data`.  The `health_exp_pub_per_cap` values
+go on the x axis, and the `mat_mort_ratio` values go on the y axis.
+
+```{r}
+#- Plot 'health_exp_pub_per_cap' against `mat_mort_ratio`.
+#- 10 marks / 100 (total 100 so far).
+```
+
+## Before you submit
+
+Before you submit this Notebook for marking, make sure that all the chunks
+execute correctly.  To do that, go to the Run button at the top of the
+notebook, and click "Restart R and Clear Output".  Then go to the top of the
+notebook, and run each chunk in turn, to make sure that they run without error,
+and give you the output you expect.  *Remember, we're going to run an automated
+marking script over this file, so it has to execute correctly, for you to get
+the marks*.
