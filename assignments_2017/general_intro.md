@@ -43,15 +43,15 @@ packages installed on the computer you are working on.  These are all
 completely free (no cost and open-source).   There are a couple of videos on
 how to install these on:
 
-* [Windows](vimeo.com/239492022)
-* [macOS / OS X](vimeo.com/239497938)
+* [Windows](https://vimeo.com/239492022)
+* [macOS / OS X](https://vimeo.com/239497938)
 
 If you're on Linux, we're pretty sure you can work it out for yourself.
 
 Some people have had problems when trying to create new R Notebooks, with an
 error message that "One or more packages required for R Notebook creation were
 not installed".  If you get this error, try the fix at
-https://vimeo.com/244451868
+<https://vimeo.com/244451868>
 
 Any remaining problems with installation, please mail \<your email here\> for
 help.

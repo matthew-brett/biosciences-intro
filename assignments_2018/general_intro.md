@@ -27,10 +27,10 @@ packages installed on the computer you are working on.  These are all
 completely free (no cost and open-source).   There are a couple of videos on
 how to install these on:
 
-* [Windows](vimeo.com/239492022) but \- don't install the 3.4.2 R version, that
+* [Windows](https://vimeo.com/239492022) but \- don't install the 3.4.2 R version, that
   was the most recent at the time of the video, install the latest version \-
   3.5.1 at time of writing.
-* [macOS / OS X](vimeo.com/239497938) but \- don't install the 3.4.0 R version,
+* [macOS / OS X](https://vimeo.com/239497938) but \- don't install the 3.4.0 R version,
   that was the most recent at the time of the video, install the latest version
   \- 3.5.1 at time of writing.
 
