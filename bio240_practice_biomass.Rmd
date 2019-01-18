@@ -1,0 +1,143 @@
+---
+title: "BIO240 practice notebook"
+output:
+  html_document: default
+  html_notebook: default
+  pdf_document: default
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code.
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*.   The code below shows the *working directory*.  This is the directory that R is working in.
+
+```{r}
+getwd()
+```
+
+As you probably know by now, you can add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
+
+In this Notebook, we will ask you to "show" some values.  For example, imagine you had already set a variable `a` to contain the value 10:
+
+```{r}
+a <- 10
+```
+
+To "show"" the value, you put the variable on a line on its own, at the end of the chunk, like this:
+
+```{r}
+a
+```
+
+When you execute the chunk, the value appears after the chunk.
+
+# Getting the Biomass data
+
+We are going to work on plant biomass data.  Run this chunk to load the data file from the web.
+
+```{r}
+# Download dataset to working directory
+download.file("https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/DAAG/biomass.csv",
+              "biomass.csv")
+```
+
+The command above gets the file from the given URL, and saves it as `biomass.csv` in R's working directory.  This is the directory you saw above with `getwd()`.
+
+Has the file arrived?  We `list` the file names present in the working directory. You should see a file called `biomass.csv` in this list:
+
+```{r}
+list.files()
+```
+
+Now we are going to load the file into memory, as an R *data frame*:
+
+```{r}
+biomass <- read.csv('biomass.csv')
+```
+
+After executing the chunk above, you should have a new variable called `biomass`, of type *data frame*. View it with the following command.  The view will open in a new tab.  Switch back to this notebook tab to continue:
+
+```{r}
+View(biomass)
+```
+
+When you look at the `View` of the data frame, you may have noticed that it has columns including "root" and "wood". You can see all the column names with:
+
+```{r}
+names(biomass)
+```
+
+# Plotting the biomass data
+
+Use your [Code School](http://tryr.codeschool.com) skills to do a scatterplot with "root" on the x-axis and "wood" on the y-axis:
+
+```{r}
+#- Here you type the commands to plot wood against root
+
+```
+
+These data are for several different species.  The column "species" has the identifier for each species.  When R loaded this dataset, it decided that the "species" column was a `factor`.
+
+Show the levels of the factor by filling out the cell below.  See above for what we mean by "show":
+
+```{r}
+#- show the levels of the species factor
+
+```
+
+You didn't cover this in Code School, but this is how we make a new data frame, containing only the rows with "Acacia mabellae"" as the "species".  See [Acacia mabellae](http://plantnet.rbgsyd.nsw.gov.au/cgi-bin/NSWfl.pl?page=nswfl&lvl=sp&name=Acacia~mabellae).
+
+```{r}
+acacia <- biomass[biomass$species == 'Acacia mabellae',]
+```
+
+Check this worked by looking at a new data frame with `View`:
+
+```{r}
+View(acacia)
+```
+
+# Summary statistics, regression and correlation
+
+Show the mean of the "wood" column in this data frame:
+
+```{r}
+# - Show the mean of the "wood" column in the acacia data frame
+
+```
+
+
+Some of the weights are NA; this probably means that the weight was not recorded for that plant. Remember your Code School reading, and repeat the mean calculation, but dropping the NA values:
+
+```{r}
+# - Show the mean of the "wood" column in the acacia data frame, without NAs
+
+```
+
+Now do a scatterplot of "wood" (y axis) against "root" (x axis), for this new data frame:
+
+```{r}
+#- Plot wood against root for acacia data frame
+
+```
+
+Now we are going to calculate the best fit (least squares, regression) line relating "wood" to "root".  If you can't remember how to do that, check out the Code School section on Real World Data.  Show the slope and intercept:
+
+```{r}
+#- Calculate least squares line relating wood to root.
+
+
+```
+
+Next calculate the correlation between "root" and "wood" for these acacia cases.  For the correlation, we have to decide what to do with the NA values.  Use the help tab at the right of the R studio interface, to look at the help for "cor".  See if you can work out how to ask `cor` to select only the cases which are "pairwise complete" - that is - neither "weight" nor "hindfoot_length" is missing. Show the correlation coefficient.
+
+```{r}
+#- Show correlation between root and wood for acacia cases.
+#- Ask cor to restrict itself to rows where neither column has an NA.
+
+```
+
+# Checking the notebook
+
+If you were going to submit this notebook, you would want to make sure that all the chunks execute correctly.  To do that, go to the Run button at the top of the notebook, and click "Restart R and Clear Output".  Then go to the top of the notebook, and run each chunk in turn, to make sure that they run without error, and give you the output you expect.
