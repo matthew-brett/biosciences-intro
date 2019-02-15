@@ -1,0 +1,100 @@
+---
+title: "A subset of an animal survey"
+output: html_notebook
+---
+
+The data comes from a [short R course](https://datacarpentry.org/R-ecology-lesson) by <https://datacarpentry.org>.
+
+It is survey data of a variety of animal species across different types of plots (control plots, etc).
+
+```{r}
+# Read in the original data
+surveys <- read.csv("https://ndownloader.figshare.com/files/2292169")
+# Show the top six rows
+head(surveys)
+```
+
+Investigation revealed that the most comment taxon was "Rodent":
+
+```{r}
+table(surveys$taxa)
+```
+
+First select the rodents from the whole data frame.
+
+```{r}
+rodents = subset(surveys, surveys$taxa == 'Rodent')
+dim(rodents)
+```
+
+Within rodents, there were a few species with relatively large numbers.
+
+```{r}
+rodent_counts <- table(rodents$species_id)
+rodent_counts
+```
+
+We can use the table to find the species id names with more than 2000 individual animals.
+
+```{r}
+lots_of_rodents <- rodent_counts[rodent_counts > 2000]
+lots_of_rodents
+```
+
+Show the total number of rodents from species with > 2000 counts:
+
+```{r}
+sum(lots_of_rodents)
+```
+
+Get the names of the common species.
+
+```{r}
+lots_names <- names(lots_of_rodents)
+lots_names
+```
+ 
+The `is.element` function tests whether each element of a (say) column is in another list - in our case - the list of species with > 2000 individuals. 
+ 
+```{r}
+is_common_rodent <- is.element(rodents$species_id, lots_names)
+head(is_common_rodent)
+```
+
+Make a new data frame containing only the common rodents:
+
+```{r}
+common_rodents <- subset(rodents, is_common_rodent)
+head(common_rodents)
+```
+
+Show it has the same number of rows as the sum of the counts above:
+
+```{r}
+dim(common_rodents)
+```
+
+Check that the subset only has the common rodents:
+
+```{r}
+table(common_rodents$species_id)
+```
+
+Save this data frame as a CSV file, for use in the exercise.
+
+```{r}
+write.csv(common_rodents, 'rodent_survey.csv')
+```
+
+Read it back in again, to check that it reads correctly:
+
+```{r}
+reread_rodents <- read.csv('rodent_survey.csv')
+head(reread_rodents)
+```
+
+Show the counts of the species:
+
+```{r}
+table(reread_rodents$species_id)
+```
