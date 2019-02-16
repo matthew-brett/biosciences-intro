@@ -80,6 +80,19 @@ Check that the subset only has the common rodents:
 table(common_rodents$species_id)
 ```
 
+The `sex` column has an un-named level, which should be `NA`:
+
+```{r}
+table(common_rodents$sex)
+```
+
+Set to `NA`:
+
+```{r}
+common_rodents$sex[common_rodents$sex == ""] <- NA
+table(common_rodents$sex)
+```
+
 Save this data frame as a CSV file, for use in the exercise.
 
 ```{r}
@@ -97,4 +110,10 @@ Show the counts of the species:
 
 ```{r}
 table(reread_rodents$species_id)
+```
+
+Show the values in the `sex` column:
+
+```{r}
+table(reread_rodents$sex)
 ```

@@ -74,7 +74,7 @@ display: none;
 padding: 0 4px 0 4px;
 }
 .pagedtable .even {
-background-color: rgba(140, 140, 140, 0.1);
+background-color: #fcfcfc;
 }
 .pagedtable-padding-col {
 display: none;
@@ -1626,9 +1626,6 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
-summary {
-  display: list-item;
-}
 </style>
 
 <style type="text/css">
@@ -1660,70 +1657,9 @@ summary {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
 });
 </script>
 
@@ -1737,6 +1673,7 @@ $(document).ready(function () {
   window.initializeCodeFolding("show" === "show");
 });
 </script>
+
 
 
 
@@ -1772,13 +1709,22 @@ surveys &lt;- read.csv(&quot;https://ndownloader.figshare.com/files/2292169&quot
 # Show the top six rows
 head(surveys)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MTMsIm5yb3ciOjZ9LCJyZGYiOiJINHNJQUFBQUFBQUFBNjFXMjI3YlJoQ2xkYUV1c1dvWGVXbjdVai8yeFVMYlA3RGx0Q25peEtwWUYwYUFvbGlSWTNMaDVTNjdYQ3BXbi9KYitadCtTZEtoeEptbFZEVklnUW9ZNlhCMlovYk1iYW5GMWQzMzQ3dHhFQVNkb052dkJKMHV3bDRIdjQ2Q1hqQ3FmeCtEb1BzVXdhU1JjTE1ZQk05Ui9rS0l4a2Uvb1R5MDFnY29RNVRhUWUzOFNTTzBmb3BDUG10ODNFaXpQbmgzV05pK2MxaTZiZjhIWkNld1VNRUtWTm1zZnR0b094ZVhqSjR6aWdoZFhoQ2E4YjdaUzBZL00yS0wyUytNYmhuOVN1aUtiYTl1R0xIdDFSMmhWOWVFYmp4aXp6ZThiODZzNWpOR3p4ajl3T2hIUmh6bC9DZEdmTWFjK2MzbmpEaU9PWis3WU04THRsaHdSQXZlRjNIK0l1WVhzVzNFWENLMmpUZ2JFY2NiTVlOYlpuckwvRzRYak5qMjlmVmU5ZnV4RWlVVm4xdmlYc1RPV0VUdlc4M1ViZVJvVjJwM25RK05oMjdqSWFDcG9aaU9YbTUzZGo5ODdDeHU3RE9VcjkvaVYxdG9mVi92MTVucjVMRHNjUDJxWVRDK3lIT1RXSkZYWmFNNXJUVmxBVFkzUlNZVjYzRW5QcGVGL0ZNMG1zR2xrQ1pmMDRZbk02RkViZXAzakZHbFpBR0ZJczNKVE9URldobWJyWFdjVmQ0MkUrQk1JZ3RXVFdZYWNwa2dDV05aT1p4WjQ0UW5OYnFTaFVsYUpNSnJQTjBteFBBVkdHZHlPbngwbzlkeDFxWThCMnRTTFp4bk1xNVZ1Q05tVFRpWGhWU0dmTXlOZ1JnYzBQTEpBcVRMTExMUXJrMWtZUkxRanJ4R01TaFR0Q09KWkpyWFJrUTFLb1MxNWszemVCd2RxRUMwVml1cFJPclQ5dHBvNDZ5TU15aytwY1c2N2J2N2dPeTB5RGZFVktpbFRDc3U0VWhVU2JVMFdrcWl2aFJTd1pvZVIwdXBwQWJodU9aTFcya05NaGFZeDFidDRnejdvUElwQ1hFYzdRTzVHWUxGK3JmS2NLL0V5dWZpdmxJcktHUFFuSXRhSTFlWWM3QnNVclhxT0VxeHpaRVlLd1laWmx5V2ZPQ211eE9mWEZtN3lpR1JYcVdnaWswcVNuL0dlS01xTXN1VkgyNDEzaWdYR3VOUXdua3FPYVJDR1NmOUhsQkNtOWkwM09TQTdKQXhQMk9EQ2MwK2prMmM3VGR2MzlpRXkzSmNBSjZMR1c4ZFBDN0ZTbWd0YkpXekpxNXdvbHA3dW1VeEpWcDREOFJPMUFWbDZtVTlES1VmcW1INVJ5VnlYKzJCRS9WOE13dE1GVGlzZmVVekd6cVpXdlk0eFBhMHJieVBLcDNzWnF2U0VvZkRsM3F3a21pQUR2NUx5L2NPeTA3TDl4b1B2VXZKZDBpNEVNdWxwRUVlTEtCdzJPMTdVLzUvejE2ZmpwdGgwYTFSemVNWDEwYW41M1ZYbnIyd3dwMDllNHl4RnBVbE9xZGJPdi9RZnhuaEplbytZdmg1dEMzMEdmRENKNFMwK3pMVklnZDZtVTZvZEJhd3A1UGZKV1d6WDNkeFJwMldpRFZsZkEyQ1JtcFE0R2g0azNIZGhCSktyK21XOEVoM1N5WjFjbTl3dndLZHN1ZndEY2cwbzZMMVUvQnpNMmpjMGNGT1BQTE50am5ZclF2WWkyMkVGL09VNHF2cjJIa2JiRDdodjZScG5PQkFUTy94d29FRHFSb1k3Q0dEN1J4MG5tNkt2V3Q4WlBjVUozaDlvcWZrSE4rWSt1SDh1MkQ3aDVxYVo5TDhoaTNjdk85Nyt3MFZZcGJ3RHFURUtMRUVhcTdQTU1oTmpOUENTdi9tUW0wNWRmVmJselN4VWFUWi9uRjUvemQ2SlY5OFFnd0FBQT09In0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["record_id"],"name":[1],"type":["int"],"align":["right"]},{"label":["month"],"name":[2],"type":["int"],"align":["right"]},{"label":["day"],"name":[3],"type":["int"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["plot_id"],"name":[5],"type":["int"],"align":["right"]},{"label":["species_id"],"name":[6],"type":["fctr"],"align":["left"]},{"label":["sex"],"name":[7],"type":["fctr"],"align":["left"]},{"label":["hindfoot_length"],"name":[8],"type":["int"],"align":["right"]},{"label":["weight"],"name":[9],"type":["int"],"align":["right"]},{"label":["genus"],"name":[10],"type":["fctr"],"align":["left"]},{"label":["species"],"name":[11],"type":["fctr"],"align":["left"]},{"label":["taxa"],"name":[12],"type":["fctr"],"align":["left"]},{"label":["plot_type"],"name":[13],"type":["fctr"],"align":["left"]}],"data":[{"1":"1","2":"7","3":"16","4":"1977","5":"2","6":"NL","7":"M","8":"32","9":"NA","10":"Neotoma","11":"albigula","12":"Rodent","13":"Control","_rn_":"1"},{"1":"72","2":"8","3":"19","4":"1977","5":"2","6":"NL","7":"M","8":"31","9":"NA","10":"Neotoma","11":"albigula","12":"Rodent","13":"Control","_rn_":"2"},{"1":"224","2":"9","3":"13","4":"1977","5":"2","6":"NL","7":"","8":"NA","9":"NA","10":"Neotoma","11":"albigula","12":"Rodent","13":"Control","_rn_":"3"},{"1":"266","2":"10","3":"16","4":"1977","5":"2","6":"NL","7":"","8":"NA","9":"NA","10":"Neotoma","11":"albigula","12":"Rodent","13":"Control","_rn_":"4"},{"1":"349","2":"11","3":"12","4":"1977","5":"2","6":"NL","7":"","8":"NA","9":"NA","10":"Neotoma","11":"albigula","12":"Rodent","13":"Control","_rn_":"5"},{"1":"363","2":"11","3":"12","4":"1977","5":"2","6":"NL","7":"","8":"NA","9":"NA","10":"Neotoma","11":"albigula","12":"Rodent","13":"Control","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[13]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICByZWNvcmRfaWQgbW9udGggZGF5IHllYXIgcGxvdF9pZCBzcGVjaWVzX2lkIHNleCBoaW5kZm9vdF9sZW5ndGggd2VpZ2h0XG4xICAgICAgICAgMSAgICAgNyAgMTYgMTk3NyAgICAgICAyICAgICAgICAgTkwgICBNICAgICAgICAgICAgICAzMiAgICAgTkFcbjIgICAgICAgIDcyICAgICA4ICAxOSAxOTc3ICAgICAgIDIgICAgICAgICBOTCAgIE0gICAgICAgICAgICAgIDMxICAgICBOQVxuMyAgICAgICAyMjQgICAgIDkgIDEzIDE5NzcgICAgICAgMiAgICAgICAgIE5MICAgICAgICAgICAgICAgICAgTkEgICAgIE5BXG40ICAgICAgIDI2NiAgICAxMCAgMTYgMTk3NyAgICAgICAyICAgICAgICAgTkwgICAgICAgICAgICAgICAgICBOQSAgICAgTkFcbjUgICAgICAgMzQ5ICAgIDExICAxMiAxOTc3ICAgICAgIDIgICAgICAgICBOTCAgICAgICAgICAgICAgICAgIE5BICAgICBOQVxuNiAgICAgICAzNjMgICAgMTEgIDEyIDE5NzcgICAgICAgMiAgICAgICAgIE5MICAgICAgICAgICAgICAgICAgTkEgICAgIE5BXG4gICAgZ2VudXMgIHNwZWNpZXMgICB0YXhhIHBsb3RfdHlwZVxuMSBOZW90b21hIGFsYmlndWxhIFJvZGVudCAgIENvbnRyb2xcbjIgTmVvdG9tYSBhbGJpZ3VsYSBSb2RlbnQgICBDb250cm9sXG4zIE5lb3RvbWEgYWxiaWd1bGEgUm9kZW50ICAgQ29udHJvbFxuNCBOZW90b21hIGFsYmlndWxhIFJvZGVudCAgIENvbnRyb2xcbjUgTmVvdG9tYSBhbGJpZ3VsYSBSb2RlbnQgICBDb250cm9sXG42IE5lb3RvbWEgYWxiaWd1bGEgUm9kZW50ICAgQ29udHJvbFxuIn0= -->
+<pre><code>  record_id month day year plot_id species_id sex hindfoot_length weight
+1         1     7  16 1977       2         NL   M              32     NA
+2        72     8  19 1977       2         NL   M              31     NA
+3       224     9  13 1977       2         NL                  NA     NA
+4       266    10  16 1977       2         NL                  NA     NA
+5       349    11  12 1977       2         NL                  NA     NA
+6       363    11  12 1977       2         NL                  NA     NA
+    genus  species   taxa plot_type
+1 Neotoma albigula Rodent   Control
+2 Neotoma albigula Rodent   Control
+3 Neotoma albigula Rodent   Control
+4 Neotoma albigula Rodent   Control
+5 Neotoma albigula Rodent   Control
+6 Neotoma albigula Rodent   Control</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Investigation revealed that the most comment taxon was “Rodent”:</p>
@@ -1813,18 +1759,16 @@ dim(rodents)</code></pre>
 <pre class="r"><code>rodent_counts &lt;- table(rodents$species_id)
 rodent_counts</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4gICBBQiAgICBBSCAgICBBUyAgICBCQSAgICBDQiAgICBDTSAgICBDUSAgICBDUyAgICBDVCAgICBDVSBcbiAgICAwICAgNDM3ICAgICAwICAgIDQ2ICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwIFxuICAgQ1YgICAgRE0gICAgRE8gICAgRFMgICAgRFggICAgTkwgICAgT0wgICAgT1QgICAgT1ggICAgUEIgXG4gICAgMCAxMDU5NiAgMzAyNyAgMjUwNCAgICA0MCAgMTI1MiAgMTAwNiAgMjI0OSAgICAxMiAgMjg5MSBcbiAgIFBDICAgIFBFICAgIFBGICAgIFBHICAgIFBIICAgIFBJICAgIFBMICAgIFBNICAgIFBQICAgIFBVIFxuICAgIDAgIDEyOTkgIDE1OTcgICAgIDAgICAgMzIgICAgIDkgICAgMzYgICA4OTkgIDMxMjMgICAgIDAgXG4gICBQWCAgICBSRiAgICBSTSAgICBSTyAgICBSWCAgICBTQSAgICBTQyAgICBTRiAgICBTSCAgICBTTyBcbiAgICA2ICAgIDc1ICAyNjA5ICAgICA4ICAgICAyICAgICAwICAgICAwICAgIDQzICAgMTQ3ICAgIDQzIFxuICAgU1MgICAgU1QgICAgU1UgICAgVUwgICAgVVAgICAgVVIgICAgVVMgICAgWkwgXG4gIDI0OCAgICAgMSAgICAgMCAgICAgMCAgICAgMCAgICAxMCAgICAgMCAgICAgMCBcbiJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gICBBQiAgICBBSCAgICBBUyAgICBCQSAgICBDQiAgICBDTSAgICBDUSAgICBDUyAgICBDVCAgICBDVSAgICBDViAgICBETSAgICBETyBcbiAgICAwICAgNDM3ICAgICAwICAgIDQ2ICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwIDEwNTk2ICAzMDI3IFxuICAgRFMgICAgRFggICAgTkwgICAgT0wgICAgT1QgICAgT1ggICAgUEIgICAgUEMgICAgUEUgICAgUEYgICAgUEcgICAgUEggICAgUEkgXG4gMjUwNCAgICA0MCAgMTI1MiAgMTAwNiAgMjI0OSAgICAxMiAgMjg5MSAgICAgMCAgMTI5OSAgMTU5NyAgICAgMCAgICAzMiAgICAgOSBcbiAgIFBMICAgIFBNICAgIFBQICAgIFBVICAgIFBYICAgIFJGICAgIFJNICAgIFJPICAgIFJYICAgIFNBICAgIFNDICAgIFNGICAgIFNIIFxuICAgMzYgICA4OTkgIDMxMjMgICAgIDAgICAgIDYgICAgNzUgIDI2MDkgICAgIDggICAgIDIgICAgIDAgICAgIDAgICAgNDMgICAxNDcgXG4gICBTTyAgICBTUyAgICBTVCAgICBTVSAgICBVTCAgICBVUCAgICBVUiAgICBVUyAgICBaTCBcbiAgIDQzICAgMjQ4ICAgICAxICAgICAwICAgICAwICAgICAwICAgIDEwICAgICAwICAgICAwIFxuIn0= -->
 <pre><code>
-   AB    AH    AS    BA    CB    CM    CQ    CS    CT    CU 
-    0   437     0    46     0     0     0     0     0     0 
-   CV    DM    DO    DS    DX    NL    OL    OT    OX    PB 
-    0 10596  3027  2504    40  1252  1006  2249    12  2891 
-   PC    PE    PF    PG    PH    PI    PL    PM    PP    PU 
-    0  1299  1597     0    32     9    36   899  3123     0 
-   PX    RF    RM    RO    RX    SA    SC    SF    SH    SO 
-    6    75  2609     8     2     0     0    43   147    43 
-   SS    ST    SU    UL    UP    UR    US    ZL 
-  248     1     0     0     0    10     0     0 </code></pre>
+   AB    AH    AS    BA    CB    CM    CQ    CS    CT    CU    CV    DM    DO 
+    0   437     0    46     0     0     0     0     0     0     0 10596  3027 
+   DS    DX    NL    OL    OT    OX    PB    PC    PE    PF    PG    PH    PI 
+ 2504    40  1252  1006  2249    12  2891     0  1299  1597     0    32     9 
+   PL    PM    PP    PU    PX    RF    RM    RO    RX    SA    SC    SF    SH 
+   36   899  3123     0     6    75  2609     8     2     0     0    43   147 
+   SO    SS    ST    SU    UL    UP    UR    US    ZL 
+   43   248     1     0     0     0    10     0     0 </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1884,13 +1828,22 @@ head(is_common_rodent)</code></pre>
 <pre class="r"><code>common_rodents &lt;- subset(rodents, is_common_rodent)
 head(common_rodents)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MTMsIm5yb3ciOjZ9LCJyZGYiOiJINHNJQUFBQUFBQUFBNVZXUzVQYlJCQ1czMnRubDEwcUJ3aW5QVURCZ1YwZU9lVzRhNGRIc2NrYWk2VzJjcUhHVXE4MGxkR01HSTJjTlNmK0ZuK0I1My9neGcvZ1JGVkN5MWIzeU1ha2tzTm50WHI2OFUxM3o4aXp5Zldubyt0UkVBVHRvTk5yQiswT2l0MDIvclNDYmpDc25yZEIwTG1Md2tHTlBxS3kraFB4RitKdnhEOW8xMnFzRHhEREdxTUdhUDJvRWUrb2dYcDk4Tk51c0g5N056cTB2cjhiR3h2cksxaUFLdXJNSDlmYTl0azVTMSt3RkpKMGZrYlNtTzNHajFqNm1pWDJHSC9EMGhWTDM1STBZZC9KSlV2c083a202ZkVGU1pkZTRzaVhiRGRsVnRNeFN3OVorb3lsejFuaVhVNi9aSWx6VEpuZmRNb1M3MlBLZVdjY2VjWWVNOTdSak8xQ3JsL0kvRUwyRFpsTHlMNGhWeVBrL1liTTRJcVpYakcvcXhsTDdQdmtZcXY3dlVpSmdwclBJM0VqSW1jc1NzOGJ3OVN1QjM0TFZiajJpenBDcDQ0UTBLbWhQYlVlclMwN0wxNldpd2Y3dlJyMzZ1ZTc5WE8xL3VNcVFYQWY4U0hpZmNRbmlJOGFYTy9zeGdiWGQyb0dvN01zTTdFVldWblVtcU5LVStSZ001T25VckVlTGZHOXlPVVBvdFlNem9VMDJaSU03b3lGRXBXcnR4aWhTc2tjY2tXYXc3SEk4cVV5TmwzcUtDMjlieXJBbVZqbXJEb1lhOGhrakNTTVplWGUyQm9uUEtuaFJPWW1icERvWDJCMkd4UER4MkNjeVNqNThGSXZvN1JKZVFyV0pGbzR6MlJVcWRBaVlrMS9Lbk9wRE1XWUdnTVJPS0Rsd3hsSWwxcGtvVjJUeU16RW9CMUZEU05RSm0vdUpKUkpWamtSMVRBWDFwcG45ZXQrdUtNRDRWSXRwQktKTDlzVG80MnpNa3FsZUpVUjR4RjVhemMyUnVRRFlpclVYQ1lsdDNBb3lyaWNHeTBsVVo4THFXQkpyOE81VkZLRGNOenp1UzIxQmhrSnJHT2pkMUdLYzFENmt2VHhPTnFuRkdZUExQYS8wWVliSlJhK0ZqZWxXa0FSZ2VaYVZCcTV3SnFEWlpleTBjZGhnbU9PeEZneFNMSGlzdUNFcSttT2ZYRmxGU3FEV0hxVmdqSXlpU2g4anRGS2xhZVdPNyszMW5pblRHamNoeExPVThrZ0VjbzQ2VzFBQ1cwaTB3aVRBYkpEeHZ5T0F5WTB4OWczVWJvOXZEMWpZMjdMZmc2WUZ5dmVTRHdxeEVKb0xXeVpzU1lxOFVRMWJEcEZma3EwOEI2SW5LZ2F5dFNMNmpBVS9sRHRGZCtYSXZQZEhqaFJuVzltZ2FVQ2g3MHZmV1g3VGlhV0krN2hlTnBHM1llbGpqZXJWV3FKaDhPM2VyQ1E2SUFCWG1ma3U3dXhNZkxkT2tMM1hQSWQwcCtKK1Z6U1FSN01JSGM0N1Z1bi9IV0l0SFpqZzBpUDBvMng2ZGFvK3ZYdEM2T1RrMm9xajcreXdoMC92STJ3RjZVbE9rZHJPdi9SM3d2eEVuVXZjWHd6WERmNkdIamhGYmEwK1RIVklnUDZtQjVRNnl6Z1RNZmZTYXBtcjVyaWxDWXRGa3VxK0JJRUhhbEJqa2ZEdTR5cUlaUlFlRTJuZ0Z1NlcxS3A0eHVEOWdwMHdwSDd6MEFtS1RXdGw0QS9ONE02SENWMjRwWnZ0bFZpdDh4aGEyOUR2SmhQYVgvVXg1OFJ2eUIrUmZ5RytCM3h4LytVYlJUakFUbTl3UXNJZHBSdVlIQ21ESTUzMEw2N2F2Nm1jOHR1S1E3eE9zVkk4UWwrUWZYVGt3ZkIrbzgxRGROQi9ldzM1SU4xeXU3MmdQV3hhbmduVXFHVW1BTU4yeHU0NmRXZVQzTXIvWmNNdGNXcHE3N0NwSW1NSXMzNmo4enpmd0ZEclhNY1Vnd0FBQT09In0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["record_id"],"name":[1],"type":["int"],"align":["right"]},{"label":["month"],"name":[2],"type":["int"],"align":["right"]},{"label":["day"],"name":[3],"type":["int"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["plot_id"],"name":[5],"type":["int"],"align":["right"]},{"label":["species_id"],"name":[6],"type":["fctr"],"align":["left"]},{"label":["sex"],"name":[7],"type":["fctr"],"align":["left"]},{"label":["hindfoot_length"],"name":[8],"type":["int"],"align":["right"]},{"label":["weight"],"name":[9],"type":["int"],"align":["right"]},{"label":["genus"],"name":[10],"type":["fctr"],"align":["left"]},{"label":["species"],"name":[11],"type":["fctr"],"align":["left"]},{"label":["taxa"],"name":[12],"type":["fctr"],"align":["left"]},{"label":["plot_type"],"name":[13],"type":["fctr"],"align":["left"]}],"data":[{"1":"3","2":"7","3":"16","4":"1977","5":"2","6":"DM","7":"F","8":"37","9":"NA","10":"Dipodomys","11":"merriami","12":"Rodent","13":"Control","_rn_":"202"},{"1":"226","2":"9","3":"13","4":"1977","5":"2","6":"DM","7":"M","8":"37","9":"51","10":"Dipodomys","11":"merriami","12":"Rodent","13":"Control","_rn_":"203"},{"1":"233","2":"9","3":"13","4":"1977","5":"2","6":"DM","7":"M","8":"25","9":"44","10":"Dipodomys","11":"merriami","12":"Rodent","13":"Control","_rn_":"204"},{"1":"245","2":"10","3":"16","4":"1977","5":"2","6":"DM","7":"M","8":"37","9":"39","10":"Dipodomys","11":"merriami","12":"Rodent","13":"Control","_rn_":"205"},{"1":"251","2":"10","3":"16","4":"1977","5":"2","6":"DM","7":"M","8":"36","9":"49","10":"Dipodomys","11":"merriami","12":"Rodent","13":"Control","_rn_":"206"},{"1":"257","2":"10","3":"16","4":"1977","5":"2","6":"DM","7":"M","8":"37","9":"47","10":"Dipodomys","11":"merriami","12":"Rodent","13":"Control","_rn_":"207"}],"options":{"columns":{"min":{},"max":[10],"total":[13]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgIHJlY29yZF9pZCBtb250aCBkYXkgeWVhciBwbG90X2lkIHNwZWNpZXNfaWQgc2V4IGhpbmRmb290X2xlbmd0aCB3ZWlnaHRcbjIwMiAgICAgICAgIDMgICAgIDcgIDE2IDE5NzcgICAgICAgMiAgICAgICAgIERNICAgRiAgICAgICAgICAgICAgMzcgICAgIE5BXG4yMDMgICAgICAgMjI2ICAgICA5ICAxMyAxOTc3ICAgICAgIDIgICAgICAgICBETSAgIE0gICAgICAgICAgICAgIDM3ICAgICA1MVxuMjA0ICAgICAgIDIzMyAgICAgOSAgMTMgMTk3NyAgICAgICAyICAgICAgICAgRE0gICBNICAgICAgICAgICAgICAyNSAgICAgNDRcbjIwNSAgICAgICAyNDUgICAgMTAgIDE2IDE5NzcgICAgICAgMiAgICAgICAgIERNICAgTSAgICAgICAgICAgICAgMzcgICAgIDM5XG4yMDYgICAgICAgMjUxICAgIDEwICAxNiAxOTc3ICAgICAgIDIgICAgICAgICBETSAgIE0gICAgICAgICAgICAgIDM2ICAgICA0OVxuMjA3ICAgICAgIDI1NyAgICAxMCAgMTYgMTk3NyAgICAgICAyICAgICAgICAgRE0gICBNICAgICAgICAgICAgICAzNyAgICAgNDdcbiAgICAgICAgZ2VudXMgIHNwZWNpZXMgICB0YXhhIHBsb3RfdHlwZVxuMjAyIERpcG9kb215cyBtZXJyaWFtaSBSb2RlbnQgICBDb250cm9sXG4yMDMgRGlwb2RvbXlzIG1lcnJpYW1pIFJvZGVudCAgIENvbnRyb2xcbjIwNCBEaXBvZG9teXMgbWVycmlhbWkgUm9kZW50ICAgQ29udHJvbFxuMjA1IERpcG9kb215cyBtZXJyaWFtaSBSb2RlbnQgICBDb250cm9sXG4yMDYgRGlwb2RvbXlzIG1lcnJpYW1pIFJvZGVudCAgIENvbnRyb2xcbjIwNyBEaXBvZG9teXMgbWVycmlhbWkgUm9kZW50ICAgQ29udHJvbFxuIn0= -->
+<pre><code>    record_id month day year plot_id species_id sex hindfoot_length weight
+202         3     7  16 1977       2         DM   F              37     NA
+203       226     9  13 1977       2         DM   M              37     51
+204       233     9  13 1977       2         DM   M              25     44
+205       245    10  16 1977       2         DM   M              37     39
+206       251    10  16 1977       2         DM   M              36     49
+207       257    10  16 1977       2         DM   M              37     47
+        genus  species   taxa plot_type
+202 Dipodomys merriami Rodent   Control
+203 Dipodomys merriami Rodent   Control
+204 Dipodomys merriami Rodent   Control
+205 Dipodomys merriami Rodent   Control
+206 Dipodomys merriami Rodent   Control
+207 Dipodomys merriami Rodent   Control</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Show it has the same number of rows as the sum of the counts above:</p>
@@ -1910,18 +1863,43 @@ head(common_rodents)</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUoY29tbW9uX3JvZGVudHMkc3BlY2llc19pZClcbmBgYCJ9 -->
 <pre class="r"><code>table(common_rodents$species_id)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4gICBBQiAgICBBSCAgICBBUyAgICBCQSAgICBDQiAgICBDTSAgICBDUSAgICBDUyAgICBDVCAgICBDVSBcbiAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwIFxuICAgQ1YgICAgRE0gICAgRE8gICAgRFMgICAgRFggICAgTkwgICAgT0wgICAgT1QgICAgT1ggICAgUEIgXG4gICAgMCAxMDU5NiAgMzAyNyAgMjUwNCAgICAgMCAgICAgMCAgICAgMCAgMjI0OSAgICAgMCAgMjg5MSBcbiAgIFBDICAgIFBFICAgIFBGICAgIFBHICAgIFBIICAgIFBJICAgIFBMICAgIFBNICAgIFBQICAgIFBVIFxuICAgIDAgICAgIDAgICAgIDAgICAgIDAgICAgIDAgICAgIDAgICAgIDAgICAgIDAgIDMxMjMgICAgIDAgXG4gICBQWCAgICBSRiAgICBSTSAgICBSTyAgICBSWCAgICBTQSAgICBTQyAgICBTRiAgICBTSCAgICBTTyBcbiAgICAwICAgICAwICAyNjA5ICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwIFxuICAgU1MgICAgU1QgICAgU1UgICAgVUwgICAgVVAgICAgVVIgICAgVVMgICAgWkwgXG4gICAgMCAgICAgMCAgICAgMCAgICAgMCAgICAgMCAgICAgMCAgICAgMCAgICAgMCBcbiJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gICBBQiAgICBBSCAgICBBUyAgICBCQSAgICBDQiAgICBDTSAgICBDUSAgICBDUyAgICBDVCAgICBDVSAgICBDViAgICBETSAgICBETyBcbiAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwIDEwNTk2ICAzMDI3IFxuICAgRFMgICAgRFggICAgTkwgICAgT0wgICAgT1QgICAgT1ggICAgUEIgICAgUEMgICAgUEUgICAgUEYgICAgUEcgICAgUEggICAgUEkgXG4gMjUwNCAgICAgMCAgICAgMCAgICAgMCAgMjI0OSAgICAgMCAgMjg5MSAgICAgMCAgICAgMCAgICAgMCAgICAgMCAgICAgMCAgICAgMCBcbiAgIFBMICAgIFBNICAgIFBQICAgIFBVICAgIFBYICAgIFJGICAgIFJNICAgIFJPICAgIFJYICAgIFNBICAgIFNDICAgIFNGICAgIFNIIFxuICAgIDAgICAgIDAgIDMxMjMgICAgIDAgICAgIDAgICAgIDAgIDI2MDkgICAgIDAgICAgIDAgICAgIDAgICAgIDAgICAgIDAgICAgIDAgXG4gICBTTyAgICBTUyAgICBTVCAgICBTVSAgICBVTCAgICBVUCAgICBVUiAgICBVUyAgICBaTCBcbiAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwICAgICAwIFxuIn0= -->
 <pre><code>
-   AB    AH    AS    BA    CB    CM    CQ    CS    CT    CU 
-    0     0     0     0     0     0     0     0     0     0 
-   CV    DM    DO    DS    DX    NL    OL    OT    OX    PB 
-    0 10596  3027  2504     0     0     0  2249     0  2891 
-   PC    PE    PF    PG    PH    PI    PL    PM    PP    PU 
-    0     0     0     0     0     0     0     0  3123     0 
-   PX    RF    RM    RO    RX    SA    SC    SF    SH    SO 
-    0     0  2609     0     0     0     0     0     0     0 
-   SS    ST    SU    UL    UP    UR    US    ZL 
-    0     0     0     0     0     0     0     0 </code></pre>
+   AB    AH    AS    BA    CB    CM    CQ    CS    CT    CU    CV    DM    DO 
+    0     0     0     0     0     0     0     0     0     0     0 10596  3027 
+   DS    DX    NL    OL    OT    OX    PB    PC    PE    PF    PG    PH    PI 
+ 2504     0     0     0  2249     0  2891     0     0     0     0     0     0 
+   PL    PM    PP    PU    PX    RF    RM    RO    RX    SA    SC    SF    SH 
+    0     0  3123     0     0     0  2609     0     0     0     0     0     0 
+   SO    SS    ST    SU    UL    UP    UR    US    ZL 
+    0     0     0     0     0     0     0     0     0 </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The <code>sex</code> column has an un-named level, which should be <code>NA</code>:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUoY29tbW9uX3JvZGVudHMkc2V4KVxuYGBgIn0= -->
+<pre class="r"><code>table(common_rodents$sex)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gICAgICAgICAgRiAgICAgTSBcbiAgMzA0IDEyNTYwIDE0MTM1IFxuIn0= -->
+<pre><code>
+          F     M 
+  304 12560 14135 </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Set to <code>NA</code>:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29tbW9uX3JvZGVudHMkc2V4W2NvbW1vbl9yb2RlbnRzJHNleCA9PSBcIlwiXSA8LSBOQVxudGFibGUoY29tbW9uX3JvZGVudHMkc2V4KVxuYGBgIn0= -->
+<pre class="r"><code>common_rodents$sex[common_rodents$sex == &quot;&quot;] &lt;- NA
+table(common_rodents$sex)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gICAgICAgICAgRiAgICAgTSBcbiAgICAwIDEyNTYwIDE0MTM1IFxuIn0= -->
+<pre><code>
+          F     M 
+    0 12560 14135 </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1940,13 +1918,22 @@ head(common_rodents)</code></pre>
 <pre class="r"><code>reread_rodents &lt;- read.csv(&#39;rodent_survey.csv&#39;)
 head(reread_rodents)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MTQsIm5yb3ciOjZ9LCJyZGYiOiJINHNJQUFBQUFBQUFBNjFVVFhMVE1CUjI3TVFtTGcxaHVxRzdMR0RZa0RDRkc5REFCanJwSkN5eVl4UmJpVFhJa2tkV2FMempXbHlCM3p1dzR3Q3NtR2w1ZHZRY3h3Mmh6TEQ0ckUvdlNlOWZIZytuVC95cGIxbVdiVGt0MjdJZG9FMGJQZzJyYWJYemRXVlp6aEdRRHVBUTRBSStBajRCUGdPK0FMNEN2bFgwdVpYdmdCK0FuNEJmWUtkUjBYdUF0b0ZmQWVxN2hoOGEzcTNJUU85OTJJM3l2cjBiRHVvYnU3R1Z1TXZwTzhwVDQ5a3pVbnQ0VnJKUnlTYklScStSblQ4cjJUbXk4Vm5OUnl2Z0pFVVhwZU01Q2JSVXdDNHJJZHVtckRYazV1d3JZOEV4Rml6czNRc2t4ckZ6dGM5WFdiNEhCc2RtdlcvV1F2KytjR0E5QlR3Q1BBU2NBQjdYWXQyQnJWaWJKb0tEMDRoUUxVT1dMRk1qYWc5WklrTVpaNlZnSkxJZ3FnanVqQ25Ua1lKRFFoZmlHMlRuVklmemI1WEVkbnN6d2pqTkdBWVMwd1hoVWpNTTVGWk1sV0lreGdNdHFVS0dtOXNKRlN4Z25CTmQ1bmFRSmpUUVpNYjR4Z2FFcUZpNC9MY3M5b3l3ZmMzQ1dJWlU2UDl1djRWVk9vVStLTW5OOXQ0cktSWjlUVlhjZTZtSTdqMWZCVnltUzBXTnZyc081NXI4ZUJKSnBmZGN2RHRaRjY5SFM4VU5VdHArY1lMRUZGOWNCNS9IRlB1cmFBQWRmTU5DUEI1RFpwSFpPQ0hKREcxbWxDak1Qb0dKMkZ6eDh3NHptbTRrVGtwWE9MZ1JFK0Zjd25sT3hhSzA3RjVRdG9nME9sMVFVUTZNWjh5aFkwMVdCS010SE9zc29iVWsyMHBlREREUnZLRzJlYlR1SCtybGgwU1R3VnpCbFIwMTgyU2ltUlJnekQ0cXVyNTl1YUZxZ3U1UzVNN0RmaEF0eGR2K1NmNnI4Q3RqZEdoV3Q4STdhNS9OK21pNVVDWW1jQUJhbk13b2psa0hzaXlTSENTS0NTeWVEOUowb0tVbWVNNFBKRWZKK2o5MytSdFFueUdXOXdZQUFBPT0ifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X"],"name":[1],"type":["int"],"align":["right"]},{"label":["record_id"],"name":[2],"type":["int"],"align":["right"]},{"label":["month"],"name":[3],"type":["int"],"align":["right"]},{"label":["day"],"name":[4],"type":["int"],"align":["right"]},{"label":["year"],"name":[5],"type":["int"],"align":["right"]},{"label":["plot_id"],"name":[6],"type":["int"],"align":["right"]},{"label":["species_id"],"name":[7],"type":["fctr"],"align":["left"]},{"label":["sex"],"name":[8],"type":["fctr"],"align":["left"]},{"label":["hindfoot_length"],"name":[9],"type":["int"],"align":["right"]},{"label":["weight"],"name":[10],"type":["int"],"align":["right"]},{"label":["genus"],"name":[11],"type":["fctr"],"align":["left"]},{"label":["species"],"name":[12],"type":["fctr"],"align":["left"]},{"label":["taxa"],"name":[13],"type":["fctr"],"align":["left"]},{"label":["plot_type"],"name":[14],"type":["fctr"],"align":["left"]}],"data":[{"1":"202","2":"3","3":"7","4":"16","5":"1977","6":"2","7":"DM","8":"F","9":"37","10":"NA","11":"Dipodomys","12":"merriami","13":"Rodent","14":"Control","_rn_":"1"},{"1":"203","2":"226","3":"9","4":"13","5":"1977","6":"2","7":"DM","8":"M","9":"37","10":"51","11":"Dipodomys","12":"merriami","13":"Rodent","14":"Control","_rn_":"2"},{"1":"204","2":"233","3":"9","4":"13","5":"1977","6":"2","7":"DM","8":"M","9":"25","10":"44","11":"Dipodomys","12":"merriami","13":"Rodent","14":"Control","_rn_":"3"},{"1":"205","2":"245","3":"10","4":"16","5":"1977","6":"2","7":"DM","8":"M","9":"37","10":"39","11":"Dipodomys","12":"merriami","13":"Rodent","14":"Control","_rn_":"4"},{"1":"206","2":"251","3":"10","4":"16","5":"1977","6":"2","7":"DM","8":"M","9":"36","10":"49","11":"Dipodomys","12":"merriami","13":"Rodent","14":"Control","_rn_":"5"},{"1":"207","2":"257","3":"10","4":"16","5":"1977","6":"2","7":"DM","8":"M","9":"37","10":"47","11":"Dipodomys","12":"merriami","13":"Rodent","14":"Control","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[14]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgIFggcmVjb3JkX2lkIG1vbnRoIGRheSB5ZWFyIHBsb3RfaWQgc3BlY2llc19pZCBzZXggaGluZGZvb3RfbGVuZ3RoIHdlaWdodFxuMSAyMDIgICAgICAgICAzICAgICA3ICAxNiAxOTc3ICAgICAgIDIgICAgICAgICBETSAgIEYgICAgICAgICAgICAgIDM3ICAgICBOQVxuMiAyMDMgICAgICAgMjI2ICAgICA5ICAxMyAxOTc3ICAgICAgIDIgICAgICAgICBETSAgIE0gICAgICAgICAgICAgIDM3ICAgICA1MVxuMyAyMDQgICAgICAgMjMzICAgICA5ICAxMyAxOTc3ICAgICAgIDIgICAgICAgICBETSAgIE0gICAgICAgICAgICAgIDI1ICAgICA0NFxuNCAyMDUgICAgICAgMjQ1ICAgIDEwICAxNiAxOTc3ICAgICAgIDIgICAgICAgICBETSAgIE0gICAgICAgICAgICAgIDM3ICAgICAzOVxuNSAyMDYgICAgICAgMjUxICAgIDEwICAxNiAxOTc3ICAgICAgIDIgICAgICAgICBETSAgIE0gICAgICAgICAgICAgIDM2ICAgICA0OVxuNiAyMDcgICAgICAgMjU3ICAgIDEwICAxNiAxOTc3ICAgICAgIDIgICAgICAgICBETSAgIE0gICAgICAgICAgICAgIDM3ICAgICA0N1xuICAgICAgZ2VudXMgIHNwZWNpZXMgICB0YXhhIHBsb3RfdHlwZVxuMSBEaXBvZG9teXMgbWVycmlhbWkgUm9kZW50ICAgQ29udHJvbFxuMiBEaXBvZG9teXMgbWVycmlhbWkgUm9kZW50ICAgQ29udHJvbFxuMyBEaXBvZG9teXMgbWVycmlhbWkgUm9kZW50ICAgQ29udHJvbFxuNCBEaXBvZG9teXMgbWVycmlhbWkgUm9kZW50ICAgQ29udHJvbFxuNSBEaXBvZG9teXMgbWVycmlhbWkgUm9kZW50ICAgQ29udHJvbFxuNiBEaXBvZG9teXMgbWVycmlhbWkgUm9kZW50ICAgQ29udHJvbFxuIn0= -->
+<pre><code>    X record_id month day year plot_id species_id sex hindfoot_length weight
+1 202         3     7  16 1977       2         DM   F              37     NA
+2 203       226     9  13 1977       2         DM   M              37     51
+3 204       233     9  13 1977       2         DM   M              25     44
+4 205       245    10  16 1977       2         DM   M              37     39
+5 206       251    10  16 1977       2         DM   M              36     49
+6 207       257    10  16 1977       2         DM   M              37     47
+      genus  species   taxa plot_type
+1 Dipodomys merriami Rodent   Control
+2 Dipodomys merriami Rodent   Control
+3 Dipodomys merriami Rodent   Control
+4 Dipodomys merriami Rodent   Control
+5 Dipodomys merriami Rodent   Control
+6 Dipodomys merriami Rodent   Control</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Show the counts of the species:</p>
@@ -1961,8 +1948,21 @@ head(reread_rodents)</code></pre>
 10596  3027  2504  2249  2891  3123  2609 </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Show the values in the <code>sex</code> column:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUocmVyZWFkX3JvZGVudHMkc2V4KVxuYGBgIn0= -->
+<pre class="r"><code>table(reread_rodents$sex)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gICAgRiAgICAgTSBcbjEyNTYwIDE0MTM1IFxuIn0= -->
+<pre><code>
+    F     M 
+12560 14135 </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiQSBzdWJzZXQgb2YgYW4gYW5pbWFsIHN1cnZleSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGhlIGRhdGEgY29tZXMgZnJvbSBhIFtzaG9ydCBSIGNvdXJzZV0oaHR0cHM6Ly9kYXRhY2FycGVudHJ5Lm9yZy9SLWVjb2xvZ3ktbGVzc29uKSBieSA8aHR0cHM6Ly9kYXRhY2FycGVudHJ5Lm9yZz4uCgpJdCBpcyBzdXJ2ZXkgZGF0YSBvZiBhIHZhcmlldHkgb2YgYW5pbWFsIHNwZWNpZXMgYWNyb3NzIGRpZmZlcmVudCB0eXBlcyBvZiBwbG90cyAoY29udHJvbCBwbG90cywgZXRjKS4KCmBgYHtyfQojIFJlYWQgaW4gdGhlIG9yaWdpbmFsIGRhdGEKc3VydmV5cyA8LSByZWFkLmNzdigiaHR0cHM6Ly9uZG93bmxvYWRlci5maWdzaGFyZS5jb20vZmlsZXMvMjI5MjE2OSIpCiMgU2hvdyB0aGUgdG9wIHNpeCByb3dzCmhlYWQoc3VydmV5cykKYGBgCgpJbnZlc3RpZ2F0aW9uIHJldmVhbGVkIHRoYXQgdGhlIG1vc3QgY29tbWVudCB0YXhvbiB3YXMgIlJvZGVudCI6CgpgYGB7cn0KdGFibGUoc3VydmV5cyR0YXhhKQpgYGAKCkZpcnN0IHNlbGVjdCB0aGUgcm9kZW50cyBmcm9tIHRoZSB3aG9sZSBkYXRhIGZyYW1lLgoKYGBge3J9CnJvZGVudHMgPSBzdWJzZXQoc3VydmV5cywgc3VydmV5cyR0YXhhID09ICdSb2RlbnQnKQpkaW0ocm9kZW50cykKYGBgCgpXaXRoaW4gcm9kZW50cywgdGhlcmUgd2VyZSBhIGZldyBzcGVjaWVzIHdpdGggcmVsYXRpdmVseSBsYXJnZSBudW1iZXJzLgoKYGBge3J9CnJvZGVudF9jb3VudHMgPC0gdGFibGUocm9kZW50cyRzcGVjaWVzX2lkKQpyb2RlbnRfY291bnRzCmBgYAoKV2UgY2FuIHVzZSB0aGUgdGFibGUgdG8gZmluZCB0aGUgc3BlY2llcyBpZCBuYW1lcyB3aXRoIG1vcmUgdGhhbiAyMDAwIGluZGl2aWR1YWwgYW5pbWFscy4KCmBgYHtyfQpsb3RzX29mX3JvZGVudHMgPC0gcm9kZW50X2NvdW50c1tyb2RlbnRfY291bnRzID4gMjAwMF0KbG90c19vZl9yb2RlbnRzCmBgYAoKU2hvdyB0aGUgdG90YWwgbnVtYmVyIG9mIHJvZGVudHMgZnJvbSBzcGVjaWVzIHdpdGggPiAyMDAwIGNvdW50czoKCmBgYHtyfQpzdW0obG90c19vZl9yb2RlbnRzKQpgYGAKCkdldCB0aGUgbmFtZXMgb2YgdGhlIGNvbW1vbiBzcGVjaWVzLgoKYGBge3J9CmxvdHNfbmFtZXMgPC0gbmFtZXMobG90c19vZl9yb2RlbnRzKQpsb3RzX25hbWVzCmBgYAogClRoZSBgaXMuZWxlbWVudGAgZnVuY3Rpb24gdGVzdHMgd2hldGhlciBlYWNoIGVsZW1lbnQgb2YgYSAoc2F5KSBjb2x1bW4gaXMgaW4gYW5vdGhlciBsaXN0IC0gaW4gb3VyIGNhc2UgLSB0aGUgbGlzdCBvZiBzcGVjaWVzIHdpdGggPiAyMDAwIGluZGl2aWR1YWxzLiAKIApgYGB7cn0KaXNfY29tbW9uX3JvZGVudCA8LSBpcy5lbGVtZW50KHJvZGVudHMkc3BlY2llc19pZCwgbG90c19uYW1lcykKaGVhZChpc19jb21tb25fcm9kZW50KQpgYGAKCk1ha2UgYSBuZXcgZGF0YSBmcmFtZSBjb250YWluaW5nIG9ubHkgdGhlIGNvbW1vbiByb2RlbnRzOgoKYGBge3J9CmNvbW1vbl9yb2RlbnRzIDwtIHN1YnNldChyb2RlbnRzLCBpc19jb21tb25fcm9kZW50KQpoZWFkKGNvbW1vbl9yb2RlbnRzKQpgYGAKClNob3cgaXQgaGFzIHRoZSBzYW1lIG51bWJlciBvZiByb3dzIGFzIHRoZSBzdW0gb2YgdGhlIGNvdW50cyBhYm92ZToKCmBgYHtyfQpkaW0oY29tbW9uX3JvZGVudHMpCmBgYAoKQ2hlY2sgdGhhdCB0aGUgc3Vic2V0IG9ubHkgaGFzIHRoZSBjb21tb24gcm9kZW50czoKCmBgYHtyfQp0YWJsZShjb21tb25fcm9kZW50cyRzcGVjaWVzX2lkKQpgYGAKClNhdmUgdGhpcyBkYXRhIGZyYW1lIGFzIGEgQ1NWIGZpbGUsIGZvciB1c2UgaW4gdGhlIGV4ZXJjaXNlLgoKYGBge3J9CndyaXRlLmNzdihjb21tb25fcm9kZW50cywgJ3JvZGVudF9zdXJ2ZXkuY3N2JykKYGBgCgpSZWFkIGl0IGJhY2sgaW4gYWdhaW4sIHRvIGNoZWNrIHRoYXQgaXQgcmVhZHMgY29ycmVjdGx5OgoKYGBge3J9CnJlcmVhZF9yb2RlbnRzIDwtIHJlYWQuY3N2KCdyb2RlbnRfc3VydmV5LmNzdicpCmhlYWQocmVyZWFkX3JvZGVudHMpCmBgYAoKU2hvdyB0aGUgY291bnRzIG9mIHRoZSBzcGVjaWVzOgoKYGBge3J9CnRhYmxlKHJlcmVhZF9yb2RlbnRzJHNwZWNpZXNfaWQpCmBgYA==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQSBzdWJzZXQgb2YgYW4gYW5pbWFsIHN1cnZleSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGhlIGRhdGEgY29tZXMgZnJvbSBhIFtzaG9ydCBSIGNvdXJzZV0oaHR0cHM6Ly9kYXRhY2FycGVudHJ5Lm9yZy9SLWVjb2xvZ3ktbGVzc29uKSBieSA8aHR0cHM6Ly9kYXRhY2FycGVudHJ5Lm9yZz4uCgpJdCBpcyBzdXJ2ZXkgZGF0YSBvZiBhIHZhcmlldHkgb2YgYW5pbWFsIHNwZWNpZXMgYWNyb3NzIGRpZmZlcmVudCB0eXBlcyBvZiBwbG90cyAoY29udHJvbCBwbG90cywgZXRjKS4KCmBgYHtyfQojIFJlYWQgaW4gdGhlIG9yaWdpbmFsIGRhdGEKc3VydmV5cyA8LSByZWFkLmNzdigiaHR0cHM6Ly9uZG93bmxvYWRlci5maWdzaGFyZS5jb20vZmlsZXMvMjI5MjE2OSIpCiMgU2hvdyB0aGUgdG9wIHNpeCByb3dzCmhlYWQoc3VydmV5cykKYGBgCgpJbnZlc3RpZ2F0aW9uIHJldmVhbGVkIHRoYXQgdGhlIG1vc3QgY29tbWVudCB0YXhvbiB3YXMgIlJvZGVudCI6CgpgYGB7cn0KdGFibGUoc3VydmV5cyR0YXhhKQpgYGAKCkZpcnN0IHNlbGVjdCB0aGUgcm9kZW50cyBmcm9tIHRoZSB3aG9sZSBkYXRhIGZyYW1lLgoKYGBge3J9CnJvZGVudHMgPSBzdWJzZXQoc3VydmV5cywgc3VydmV5cyR0YXhhID09ICdSb2RlbnQnKQpkaW0ocm9kZW50cykKYGBgCgpXaXRoaW4gcm9kZW50cywgdGhlcmUgd2VyZSBhIGZldyBzcGVjaWVzIHdpdGggcmVsYXRpdmVseSBsYXJnZSBudW1iZXJzLgoKYGBge3J9CnJvZGVudF9jb3VudHMgPC0gdGFibGUocm9kZW50cyRzcGVjaWVzX2lkKQpyb2RlbnRfY291bnRzCmBgYAoKV2UgY2FuIHVzZSB0aGUgdGFibGUgdG8gZmluZCB0aGUgc3BlY2llcyBpZCBuYW1lcyB3aXRoIG1vcmUgdGhhbiAyMDAwIGluZGl2aWR1YWwgYW5pbWFscy4KCmBgYHtyfQpsb3RzX29mX3JvZGVudHMgPC0gcm9kZW50X2NvdW50c1tyb2RlbnRfY291bnRzID4gMjAwMF0KbG90c19vZl9yb2RlbnRzCmBgYAoKU2hvdyB0aGUgdG90YWwgbnVtYmVyIG9mIHJvZGVudHMgZnJvbSBzcGVjaWVzIHdpdGggPiAyMDAwIGNvdW50czoKCmBgYHtyfQpzdW0obG90c19vZl9yb2RlbnRzKQpgYGAKCkdldCB0aGUgbmFtZXMgb2YgdGhlIGNvbW1vbiBzcGVjaWVzLgoKYGBge3J9CmxvdHNfbmFtZXMgPC0gbmFtZXMobG90c19vZl9yb2RlbnRzKQpsb3RzX25hbWVzCmBgYAogClRoZSBgaXMuZWxlbWVudGAgZnVuY3Rpb24gdGVzdHMgd2hldGhlciBlYWNoIGVsZW1lbnQgb2YgYSAoc2F5KSBjb2x1bW4gaXMgaW4gYW5vdGhlciBsaXN0IC0gaW4gb3VyIGNhc2UgLSB0aGUgbGlzdCBvZiBzcGVjaWVzIHdpdGggPiAyMDAwIGluZGl2aWR1YWxzLiAKIApgYGB7cn0KaXNfY29tbW9uX3JvZGVudCA8LSBpcy5lbGVtZW50KHJvZGVudHMkc3BlY2llc19pZCwgbG90c19uYW1lcykKaGVhZChpc19jb21tb25fcm9kZW50KQpgYGAKCk1ha2UgYSBuZXcgZGF0YSBmcmFtZSBjb250YWluaW5nIG9ubHkgdGhlIGNvbW1vbiByb2RlbnRzOgoKYGBge3J9CmNvbW1vbl9yb2RlbnRzIDwtIHN1YnNldChyb2RlbnRzLCBpc19jb21tb25fcm9kZW50KQpoZWFkKGNvbW1vbl9yb2RlbnRzKQpgYGAKClNob3cgaXQgaGFzIHRoZSBzYW1lIG51bWJlciBvZiByb3dzIGFzIHRoZSBzdW0gb2YgdGhlIGNvdW50cyBhYm92ZToKCmBgYHtyfQpkaW0oY29tbW9uX3JvZGVudHMpCmBgYAoKQ2hlY2sgdGhhdCB0aGUgc3Vic2V0IG9ubHkgaGFzIHRoZSBjb21tb24gcm9kZW50czoKCmBgYHtyfQp0YWJsZShjb21tb25fcm9kZW50cyRzcGVjaWVzX2lkKQpgYGAKClRoZSBgc2V4YCBjb2x1bW4gaGFzIGFuIHVuLW5hbWVkIGxldmVsLCB3aGljaCBzaG91bGQgYmUgYE5BYDoKCmBgYHtyfQp0YWJsZShjb21tb25fcm9kZW50cyRzZXgpCmBgYAoKU2V0IHRvIGBOQWA6CgpgYGB7cn0KY29tbW9uX3JvZGVudHMkc2V4W2NvbW1vbl9yb2RlbnRzJHNleCA9PSAiIl0gPC0gTkEKdGFibGUoY29tbW9uX3JvZGVudHMkc2V4KQpgYGAKClNhdmUgdGhpcyBkYXRhIGZyYW1lIGFzIGEgQ1NWIGZpbGUsIGZvciB1c2UgaW4gdGhlIGV4ZXJjaXNlLgoKYGBge3J9CndyaXRlLmNzdihjb21tb25fcm9kZW50cywgJ3JvZGVudF9zdXJ2ZXkuY3N2JykKYGBgCgpSZWFkIGl0IGJhY2sgaW4gYWdhaW4sIHRvIGNoZWNrIHRoYXQgaXQgcmVhZHMgY29ycmVjdGx5OgoKYGBge3J9CnJlcmVhZF9yb2RlbnRzIDwtIHJlYWQuY3N2KCdyb2RlbnRfc3VydmV5LmNzdicpCmhlYWQocmVyZWFkX3JvZGVudHMpCmBgYAoKU2hvdyB0aGUgY291bnRzIG9mIHRoZSBzcGVjaWVzOgoKYGBge3J9CnRhYmxlKHJlcmVhZF9yb2RlbnRzJHNwZWNpZXNfaWQpCmBgYAoKU2hvdyB0aGUgdmFsdWVzIGluIHRoZSBgc2V4YCBjb2x1bW46CgpgYGB7cn0KdGFibGUocmVyZWFkX3JvZGVudHMkc2V4KQpgYGAK</div>
 
 
 
