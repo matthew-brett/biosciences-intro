@@ -7,10 +7,10 @@ how to install these on:
 
 * [Windows](https://vimeo.com/239492022) but \- don't install the 3.4.2 R version, that
   was the most recent at the time of the video, install the latest version \-
-  3.5.1 at time of writing.
+  3.6.1 at time of writing.
 * [macOS / OS X](https://vimeo.com/239497938) but \- don't install the 3.4.0 R version,
   that was the most recent at the time of the video, install the latest version
-  \- 3.5.1 at time of writing.
+  \- 3.6.1 at time of writing.
 
 If you're on Linux, we're pretty sure you can work it out for yourself.
 
