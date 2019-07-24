@@ -6,6 +6,8 @@ import numpy as np
 
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+
 
 
 class BallShower:
@@ -113,6 +115,22 @@ bshower.plot_bb(water_nos)
 water_m = bshower.mean_for(water_nos, empty_ball)
 plt.savefig('water_mean.png')
 print(f'Actual difference: {beer_m - water_m:0.2f}')
+
+fig = plt.figure()
+gs = gridspec.GridSpec(nrows=4, ncols=4)
+L = plt.subplot(gs[0:3, :2])
+R = plt.subplot(gs[0:3, 2:])
+B = plt.subplot(gs[3, 1:-1])
+bshower.ball_figure(balls, ax=L)
+bshower.plot_bb(beer_nos)
+bshower.mean_for(beer_nos, empty_ball)
+bshower.ball_figure(balls, ax=R)
+bshower.plot_bb(water_nos)
+bshower.mean_for(water_nos, empty_ball)
+B.text(0.5, 0.5, 'Here')
+B.axis('off')
+plt.show()
+1/0
 
 seed(42)
 shuffled = balls[:]
