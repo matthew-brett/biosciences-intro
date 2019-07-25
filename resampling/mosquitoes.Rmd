@@ -1,0 +1,371 @@
+---
+title: "Do mosquitoes like beer?"
+output:
+  html_document:
+    df_print: paged
+---
+
+This R notebook is an analysis of the data from [this paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0009546).
+
+It implements the logic and analysis from an excellent talk by John Rauser: [Statistics without the agonizing pain](https://www.youtube.com/watch?v=5Dnw46eC-0o)
+
+## Introduction to R
+
+This document is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+You can execute chunks like the one below by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*.
+
+```{r}
+a <- 1
+```
+
+These *chunks* have R code in them, that R executes.
+
+The code above sets a *variable* `a` to have the value 1.
+
+You can read the chunk above as "The variable `a` gets the value 1"
+
+A *variable* is a name associated with a value.  After we have run the chunk above, `a` is the name associated with the value 1.
+
+We can see the value associated with a variable name by putting the variable name on its own line in an R chunk.  R will then show us the value associated with the variable:
+
+```{r}
+a
+```
+
+R code can include lines starting with `#`.  These are *comments*.  R ignores them, but we often put comment lines in, to explain the code to ourselves and others.
+
+```{r}
+# This is a comment line.
+# So is this.
+# R ignores lines like these.  They contain stuff for humams to read.
+```
+
+## On to the mosquitoes
+
+We are about the implement our permutation analysis.
+
+First we put the data into R as variables.
+
+The chunk below records the numbers of mosquitoes attracted to each of the 25 beer drinkers, and puts these into the variable `beer_attract`.
+
+```{r}
+# The number of mosquitoes attracted to each beer drinker, typed in from
+# the slides in the video above, at about 3.39 in.
+beer_attract <- c(27, 20, 21, 26, 27, 31, 24, 21, 20,
+                  19, 23, 24, 28, 19, 24, 29, 18,
+                  20, 17, 31, 20, 25, 28, 21, 27)
+# Show the values
+beer_attract
+```
+
+The variable `a` above got the value `1` - a single number.
+
+But here, the value of the variable `beer_attract` is what R calls a *vector*.
+It is a sequence of 25 numbers.  We have stored the sequence of numbers with the name `beer_attract`. 
+
+As you've already seen, you can show the value of a variable by typing its name on a line on its own, like this:
+
+```{r}
+beer_attract
+```
+
+R also has *functions*.   Functions are actions that you can apply to values.  These return a new value.  You can think of functions as *verbs*.
+
+One function in R is called `length`.  It is a verb that says, "return the length of the value".  We apply the function (verb) by giving the function name (here, `length`) and then parentheses.  Inside the paratheses you give the values you want to send to the function.  These are called *arguments*.
+
+For example, here we check that we do in fact have 25 beer drinkers, by applying the function `length` to the value `beer_drinkers`:
+
+```{r}
+n_beer <- length(beer_attract)
+n_beer
+```
+
+Here `beer_attract` is the *argument* to the function `length`.  The function returns a value, which is the number of elements in the sequence.
+
+Now we record the sequence of values for the water drinkers:
+
+```{r}
+# The number of mosquitoes attracted to each water drinker, typed in from
+# the slides in the video above, at about 3.39 in.
+water_attract = c(21, 22, 15, 12, 21, 16,
+                  19, 15, 22, 24, 19, 23,
+                  13, 22, 20, 24, 18, 20)
+# Show the values
+water_attract
+```
+
+Check that we do in fact have 18 water drinkers:
+
+```{r}
+n_water <- length(water_attract)
+n_water
+```
+
+`mean` is another common function.  As you can imagine, it takes a sequence of values, like `beer_attract` and returns the mean of the values.
+
+```{r}
+# Mean number of mosquitoes per beer drinker
+beer_mean = mean(beer_attract)
+beer_mean
+```
+
+```{r}
+# Mean number of mosquitoes per water drinker
+water_mean = mean(water_attract)
+water_mean
+```
+
+The difference in means:
+
+```{r}
+observed_mean_diff = beer_mean - water_mean
+observed_mean_diff
+```
+
+Here we are subtracting the value in `water_mean` from the value in `beer_mean`, to give the difference in the means.
+
+This is the difference we observe - about 4.4.  Could this reasonably have come about by chance?   By *chance* we mean, could we have observed this difference if there was, in fact, no underlying difference between the number of mosquitoes attracted to the beer drinkers, and the number attracted to the water drinkers.
+
+We simulate this situation by throwing all the mosquito counts into one big unlabeled group, with 25 + 18 = 43 members.
+
+We do this with a function called `c`, that you have already seen, if you were paying close attention.  This takes two or more values, and *concatenates* them - that is, it sticks them together into one long vector (sequence).
+
+```{r}
+# We put all counts into one group by concatenating the two lists, with "c"
+pooled = c(beer_attract, water_attract)
+pooled
+```
+
+```{r}
+# We expect the pooled group to have 25 + 18 = 43 members
+length(pooled)
+```
+
+The first 25 values in `pooled` are the beer drinker counts, and the last 18 are the water drinker counts.
+
+Now we shuffle this group to a random order.
+
+We can do this with the `sample` function.  `sample` takes a sequence and permutes it to a random order.
+
+```{r}
+# We shuffle the counts, so they are now a random mix of beer and water
+shuffled = sample(pooled)
+shuffled
+```
+
+We can take the first 25 values to be counts for our new fake beer drinkers, and the last 18 to be counts for our new fake water drinkers.  In fact, of course, each group is a random mix of beer and water drinkers.
+
+We take the first 25 values by using the `head` function.  It is a function that gives us the first n values of a sequence.  For example, here is `head` giving us the first 5 values from the original `beer_attract` sequence.
+
+```{r}
+# First remind ourselves of the values in "beer_attract"
+beer_attract
+```
+
+```{r}
+# Return the first 5 values from "beer_attract"
+head(beer_attract, 5)
+```
+
+Now we get the first 25 values from your shuffled values.  This will be our first pretend or fake or null beer drinkers sample:
+
+```{r}
+# The first 25 values
+fake_beer = head(shuffled, 25)
+fake_beer
+```
+
+Next we use the function `tail` to get the *last* 18 values from the shuffled vector:
+
+```{r}
+# The last 18 values
+fake_water = tail(shuffled, 18)
+fake_water
+```
+
+Now we calculate our means, and mean difference, to get a mean from the situation where there is no underlying difference between the groups:
+
+```{r}
+fake_mean_diff = mean(fake_beer) - mean(fake_water)
+fake_mean_diff
+```
+
+This value is less than than the 4.4ish difference we see for the original, correctly labeled counts.   Was that just a fluke?
+
+Let's do the same thing again:
+
+```{r}
+shuffled = sample(pooled)
+fake_beer = head(shuffled, 25)
+fake_water = tail(shuffled, 18)
+second_fake_mean_diff = mean(fake_beer) - mean(fake_water)
+second_fake_mean_diff
+```
+
+Those two values look rather different from the value we observe.  But - we have to keep going, and do this many times.
+
+In the next chunk, we repeat the process 10000 times, to see what the spead of the fake differences looks like.
+
+The next chunk involves a couple of new things that we haven't got time to explain, so just trust me for now.
+
+```{r}
+# Make a sequence (vector) of 10000 zeros to store our fake differences
+fake_mean_diffs = numeric(10000)
+# Repeat 10000 times
+for (i in 1:10000) {
+  # Repeat the same operations as we did above
+  shuffled = sample(pooled)
+  fake_beer = head(shuffled, 25)
+  fake_water = tail(shuffled, 18)
+  fake_mean_diff = mean(fake_beer) - mean(fake_water)
+  # Store the fake difference in our list 
+  fake_mean_diffs[i] = fake_mean_diff
+}
+```
+
+If you ran this yourself, you'll notice that it takes a fraction of a second.
+
+Let's look at the spread of mean differences we see:
+
+```{r}
+hist(fake_mean_diffs, main='Sampling distribution of mean difference')
+```
+
+The difference we saw was about 4.4.  It looks like a value that large happens very rarely by chance.
+
+Let's have a look at the first value we found:
+
+```{r}
+# The first value
+first_diff = fake_mean_diffs[1]
+first_diff
+```
+
+Is this greater than or equal to 4.4?  We can ask that question of R like this:
+
+```{r}
+first_diff <= 4.4
+```
+
+As you can see this returns a TRUE / FALSE answer.
+
+Now let's ask that same question of the first four values:
+
+```{r}
+first_four_diffs = fake_mean_diffs[1:4]
+first_four_diffs
+```
+
+```{r}
+first_four_diffs >= 4.4
+```
+
+So, we are interested in TRUE values from this comparison.  Where we see a TRUE value, the matching value in `fake_mean_diffs` was >= 4.4.
+
+Notice what happens when we add TRUE and FALSE values:
+
+```{r}
+TRUE + TRUE
+```
+
+```{r}
+TRUE + FALSE
+```
+
+When adding, TRUE counts as 1 and FALSE counts as 0.
+
+This means we can count the numbe of TRUE values in a sequence by using the function `sum`, which adds all the values in a sequence:
+
+```{r}
+sum(c(TRUE, FALSE, TRUE))
+```
+
+We can check how many times we got a mean difference greater than the original observed difference (of around 4.4) like this:
+
+```{r}
+count = sum(fake_mean_diffs >= observed_mean_diff)
+count
+```
+
+As a proportion of all 10000 trials, that is:
+
+```{r}
+p = count / 10000
+p
+```
+
+So, the probability that we would see a value of about 4.4 or greater, if there really was no difference between the beer and water drinkers, is in the order of 0.0005 - very low.
+
+## But what of the t-test?
+
+Can we get a general measure for how extreme the observed difference is in the sampling distribution?
+
+We could divide the difference in means that we saw, by the standard deviation of the sampling distribution.  The function `sd` gives the standard deviation.
+
+```{r}
+sd_of_samp_dist = sd(fake_mean_diffs)
+sd_of_samp_dist
+```
+
+```{r}
+observed_mean_diff / sd_of_samp_dist
+```
+
+
+In fact, that is similar to what the t-test does.  The difference is that the t-test uses a normal-distribution estimate for the standard deviation of the sampling distribution.
+
+```{r}
+t.test(beer_attract, water_attract)
+```
+
+## On some data that fits the t-test assumptions
+
+```{r}
+# Two groups from the normal distribution
+group1 = rnorm(500, mean=10, sd=2)
+group2 = rnorm(500, mean=10, sd=2)
+```
+
+```{r}
+t.test(group1, group2)
+```
+
+The observed difference in means:
+
+```{r}
+group_mean_diff = mean(group1) - mean(group2)
+group_mean_diff
+```
+
+The permutation test on our new data.
+
+```{r}
+# The permutation test on our new data
+pooled = c(group1, group2)
+# Make a sequence (vector) of 10000 zeros to store our fake differences
+fake_mean_diffs = numeric(10000)
+# Repeat 10000 times
+for (i in 1:10000) {
+  # Repeat the same operations as we did above
+  shuffled = sample(pooled)
+  fake_1 = head(shuffled, 500)
+  fake_2 = tail(shuffled, 500)
+  fake_mean_diff = mean(fake_1) - mean(fake_2)
+  # Store the fake difference in our list 
+  fake_mean_diffs[i] = fake_mean_diff
+}
+```
+
+The sampling distribution:
+
+```{r}
+hist(fake_mean_diffs, main='Sampling distribution of mean difference')
+```
+
+The permutation t-a-like:
+
+```{r}
+group_mean_diff / sd(fake_mean_diffs)
+```
+
