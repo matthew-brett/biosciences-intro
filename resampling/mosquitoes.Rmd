@@ -275,7 +275,7 @@ TRUE + FALSE
 
 When adding, TRUE counts as 1 and FALSE counts as 0.
 
-This means we can count the numbe of TRUE values in a sequence by using the function `sum`, which adds all the values in a sequence:
+This means we can count the number of TRUE values in a sequence by using the function `sum`, which adds all the values in a sequence:
 
 ```{r}
 sum(c(TRUE, FALSE, TRUE))
@@ -319,53 +319,4 @@ In fact, that is similar to what the t-test does.  The difference is that the t-
 t.test(beer_attract, water_attract)
 ```
 
-## On some data that fits the t-test assumptions
-
-```{r}
-# Two groups from the normal distribution
-group1 = rnorm(500, mean=10, sd=2)
-group2 = rnorm(500, mean=10, sd=2)
-```
-
-```{r}
-t.test(group1, group2)
-```
-
-The observed difference in means:
-
-```{r}
-group_mean_diff = mean(group1) - mean(group2)
-group_mean_diff
-```
-
-The permutation test on our new data.
-
-```{r}
-# The permutation test on our new data
-pooled = c(group1, group2)
-# Make a sequence (vector) of 10000 zeros to store our fake differences
-fake_mean_diffs = numeric(10000)
-# Repeat 10000 times
-for (i in 1:10000) {
-  # Repeat the same operations as we did above
-  shuffled = sample(pooled)
-  fake_1 = head(shuffled, 500)
-  fake_2 = tail(shuffled, 500)
-  fake_mean_diff = mean(fake_1) - mean(fake_2)
-  # Store the fake difference in our list 
-  fake_mean_diffs[i] = fake_mean_diff
-}
-```
-
-The sampling distribution:
-
-```{r}
-hist(fake_mean_diffs, main='Sampling distribution of mean difference')
-```
-
-The permutation t-a-like:
-
-```{r}
-group_mean_diff / sd(fake_mean_diffs)
-```
-
+See the `on_t_test` notebook for more.

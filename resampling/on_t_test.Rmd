@@ -1,0 +1,62 @@
+---
+title: "On the t-test and the sampling distribution"
+output:
+  html_document:
+    df_print: paged
+---
+
+In the mosquitoes notebook, we saw that the permutation test estimate for the t value was not very like the actual t value.
+
+This will often be so, when the data do not match the assumptions of the t-test.
+
+Here we do a t-test and a permutation test on data that does match the assumptions.
+
+```{r}
+# Two groups from the normal distribution
+group1 = rnorm(500, mean=10, sd=2)
+group2 = rnorm(500, mean=10, sd=2)
+```
+
+```{r}
+t.test(group1, group2)
+```
+
+The observed difference in means:
+
+```{r}
+group_mean_diff = mean(group1) - mean(group2)
+group_mean_diff
+```
+
+The permutation test on our new data.
+
+```{r}
+# The permutation test on our new data
+pooled = c(group1, group2)
+# Make a sequence (vector) of 10000 zeros to store our fake differences
+fake_mean_diffs = numeric(10000)
+# Repeat 10000 times
+for (i in 1:10000) {
+  # Repeat the same operations as we did above
+  shuffled = sample(pooled)
+  fake_1 = head(shuffled, 500)
+  fake_2 = tail(shuffled, 500)
+  fake_mean_diff = mean(fake_1) - mean(fake_2)
+  # Store the fake difference in our list 
+  fake_mean_diffs[i] = fake_mean_diff
+}
+```
+
+The sampling distribution:
+
+```{r}
+hist(fake_mean_diffs, main='Sampling distribution of mean difference')
+```
+
+The permutation t-a-like:
+
+```{r}
+group_mean_diff / sd(fake_mean_diffs)
+```
+
+This is similar to the t value we see above.
