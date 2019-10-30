@@ -11,12 +11,9 @@ by pressing *Cmd+Option+I*.
 We first read the dataset containing information about the passengers (not
 crew) who were on the RMS Titanic when it sank.
 
-See the [Vanderbuilt biostatistics
-datasets](http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets) for more
-detail on this dataset.
+See the [Vanderbuilt biostatistics datasets](http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets) for more detail on this dataset.
 
-You might also want to look at [Encylopedia
-Titanica](https://www.encyclopedia-titanica.org/titanic-statistics.html) for
+You might also want to look at [Encylopedia Titanica](https://www.encyclopedia-titanica.org/titanic-statistics.html) for
 more background.
 
 ```{r}
