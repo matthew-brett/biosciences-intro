@@ -2,3 +2,5 @@
 *.pyc
 .Rhistory
 .cache
+.DS_Store
+*.nb.html
