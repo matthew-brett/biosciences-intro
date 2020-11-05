@@ -1,0 +1,65 @@
+---
+title: "Preparing data for power / effect size"
+output: html_notebook
+---
+
+Assume normal distribution mean 15, standard deviation 4, sample size 100.
+
+
+```{r}
+mu <- 15
+sigma <- 4
+n <- 100
+```
+
+
+Draw two samples of size $n$ from this distribution.
+
+
+```{r}
+# Make numbers predictable.
+for (i in 1:100) {
+  set.seed(i)
+  # Draw samples.
+  controls <- rnorm(n, mu, sigma) 
+  treated <- rnorm(n, mu, sigma)
+  if (mean(controls) > mean(treated)) {
+    # Do t-test
+    res = t.test(controls, treated)
+    if (res$p.value < 0.1 & res$p.value > 0.05) { break }
+  }
+}
+res
+```
+
+```{r}
+df <- data.frame(controls=controls, treated=treated)
+write.csv(df, 'phq9_data.csv', row.names=FALSE)
+```
+
+
+```{r}
+
+read.csv('phq9_data.csv')
+```
+
+```{r}
+# Make numbers predictable.
+for (i in 1:100) {
+  set.seed(i)
+  # Draw samples.
+  controls2 <- rnorm(n, mu, sigma)
+  treated2 <- rnorm(n, mu, sigma)
+  if (mean(controls2) > mean(treated2)) {
+    # Do t-test
+    res = t.test(controls2, treated2)
+    if (res$p.value < 0.05) { break }
+  }
+}
+res
+```
+
+```{r}
+df_sig <- data.frame(controls2=controls2, treated2=treated2)
+write.csv(df_sig, 'phq9_data2.csv', row.names=FALSE)
+```

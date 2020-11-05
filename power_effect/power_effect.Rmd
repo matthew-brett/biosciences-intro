@@ -1,0 +1,282 @@
+---
+title: "Power and effect size"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by
+placing your cursor inside it and pressing *Cmd+Shift+Enter*.
+
+## The situation
+
+I have a new cognitive treatment for depression.
+
+I randomize 60 patients into two groups of 30.  The first groups gets normal
+clinical care.  The second gets my treatment.
+
+I measure their levels of depression on the [PHQ-9
+questionnaire](https://en.wikipedia.org/wiki/PHQ-9)
+
+Here are the 30 values in each group.
+
+```{r}
+data <- read.csv('phq9_data.csv')
+data
+```
+Let's investigate with some histograms:
+
+```{r}
+hist(data$controls, breaks=10)
+```
+
+```{r}
+hist(data$treated, breaks=10)
+```
+
+Side by side:
+
+```{r}
+# Two plots side by side.
+par(mfrow=c(1,2))
+hist(data$controls, breaks=10)
+hist(data$treated, breaks=10)
+```
+
+## Some more information
+
+```{r}
+summary(data)
+```
+
+## Questions 1
+
+Do you think the treatment was effective?
+
+Why?  Or why not?  How sure are you?  How effective is it?  What other
+information would you like to see to be more sure of your answers?
+
+You can ask me to calculate anything you like...
+
+## Another trial
+
+I made a rather slight modification to my treatment program, and ran another
+trial, to get the similar data.
+
+```{r}
+data2 <- read.csv('phq9_data2.csv')
+data2
+```
+
+```{r}
+# Two plots side by side.
+par(mfrow=c(1,2))
+hist(data2$controls2)
+hist(data2$treated2)
+```
+
+```{r}
+summary(data2)
+```
+
+```{r}
+t.test(data2$controls2, data2$treated2)
+```
+
+## Questions 2
+
+Do you think treatment2 was effective?  Is it more effective than the first treatment?
+
+Why?  Or why not?  How sure are you?
+
+
+## Will I find anything?
+
+Now imagine I'm doing the trial again.
+
+I can only afford 20 patients per group this time (funding is tight).
+
+The treatment is relatively labour intensive, so I'm only interested to continue
+studying this treatment if it causes a 3 point drop on the PHQ9 scale.
+
+But I know, of course, that if I take some random sample of treated patients,
+when the true population effect is 3, then my mean effect in the sample will be
+a bit random.
+
+## Random sampling
+
+Let's imagine that the PHQ9 scores are roughly normally distributed, with a mean
+of 10 (now), and a standard deviation of 4.  Here's a normal distribution with mean 15
+and standard deviation 4.
+
+```{r}
+control_population = rnorm(1000000, 15, 4)
+hist(control_population)
+```
+
+If I take sample of 10 patients from this population, it might look like this:
+
+```{r}
+control_sample1 <- sample(control_population, 20)
+hist(control_sample1, breaks=10)
+```
+
+Or this:
+
+```{r}
+control_sample2 <- sample(control_population, 20)
+hist(control_sample2, breaks=10)
+```
+
+Each sample will have a slightly different mean:
+
+```{r}
+mean(control_sample1)
+mean(control_sample2)
+```
+
+Now let's imagine my treatment has worked just as I wanted, and there is a 3
+point drop in the PHQ9 score.  My new population looks like this:
+
+```{r}
+treated_population = rnorm(1000000, 12, 4)
+hist(treated_population)
+```
+
+Of course random samples from this population also differ one from another:
+
+```{r}
+treated_sample1 <- sample(treated_population, 20)
+treated_sample2 <- sample(treated_population, 20)
+par(mfrow=c(1, 2))
+hist(treated_sample1, breaks=10)
+hist(treated_sample2, breaks=10)
+```
+
+Again, the means will differ:
+
+```{r}
+mean(treated_sample1)
+mean(treated_sample2)
+```
+
+Now consider my experiment, where I'm looking for a 3 point drop.   Let's imagine there really is a 3 point drop, as there is in the `treated_population` above.
+
+I'm sampling my first (control) group from the `control_population` - like this:
+
+```{r}
+controls <- sample(control_population, 20)
+```
+
+I'm sampling my second (treated) group from the `treated_population` - like this:
+
+```{r}
+treated <- sample(treated_population, 20)
+```
+
+I can look for a difference in means:
+
+```{r}
+mean_diff <- mean(controls) - mean(treated)
+mean_diff
+```
+
+Notice that the difference in means is not exactly 3 - because the two samples were random, so their means are random, and so is the difference between means.
+
+Or do a t-test:
+
+```{r}
+t.test(controls, treated)
+```
+
+## Questions 3
+
+Is 20 patients enough, in each group?  How will I decide if I have an effect?
+How likely am I to find the effect I am interested in?
+
+## Power
+
+Power is the chance that I will identify an effect.
+
+Usually we are only happy to say we have found an effect when the statistical
+test is significant.
+
+Remember that *significant* is not, on its own, very meaningful.  A significant
+test could still be a false positive.
+
+So, in our situation, what is the chance that the - say - t-test will be
+significant, if there really is a drop of 3 in the PHQ9 scale.
+
+We can do lots of simulations of our proposed experiment, to find out.
+
+```{r}
+mean_differences = numeric(10000)
+p_values = numeric(10000)
+for (i in 1:10000) {  # Repeat stuff between {} 10000 times.
+  # You've seen this above. We're just repeating it 10000 times.
+  controls <- sample(control_population, 20)
+  treated <- sample(treated_population, 20)
+  mean_diff <- mean(controls) - mean(treated)
+  test_result <- t.test(controls, treated)
+  # Store the results from this trial
+  mean_differences[i] <- mean_diff
+  p_values[i] <- test_result$p.value
+}
+length(mean_differences)
+```
+
+Show the mean differences:
+
+```{r}
+hist(mean_differences)
+```
+
+But - some of these were not significant.
+
+```{r}
+# Select just the significant differences
+significant_diffs <- mean_differences[p_values < 0.05]
+length(significant_diffs)
+```
+
+What proportion of the tests were significant?
+
+```{r}
+p_sig <- length(significant_diffs) / length(mean_differences)
+p_sig
+```
+
+Show all differences, and the significant differences, on the same plot.
+
+```{r}
+md_hist <- hist(mean_differences, plot=FALSE)
+p_hist <- hist(significant_diffs, breaks=md_hist$breaks, plot=FALSE)
+c1 <- rgb(173, 216, 230, max=255, alpha=80, names="lt.blue")
+c2 <- rgb(255, 192, 203, max=255, alpha=80, names="lt.pink")
+plot(md_hist, col = c1, main='All and significant mean differences') # Plot 1st histogram using a transparent color
+plot(p_hist, col = c2, add = TRUE) # Add 2nd histogram using different color
+```
+
+So, if we accept a p value of 0.05 as significant we have the following chance
+of getting a "significant" result, if the effect really is 3.
+
+```{r}
+p_sig
+```
+
+Which means we have the following chance of *missing* the effect (because our test was not significant).
+
+```{r}
+beta <- 1 - p_sig
+beta
+```
+
+## Questions
+
+Is it OK to have a roughly 35% chance of failing to get a significant result?
+
+What could we do to improve our chances of getting a significant result?
+
+What would cause us to get lower chances of a significant result?
+
+## A COVID test
