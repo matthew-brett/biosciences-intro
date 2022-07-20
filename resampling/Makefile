@@ -8,14 +8,14 @@ SOURCE=yay_resampling
 # `brew install gpp` on macOS
 
 slides: $(SOURCE).md
-	gpp -H $(SOURCE).md | pandoc \
-	    --filter pandoc-citeproc \
+	pandoc $(SOURCE).md \
+	    --citeproc \
 	    -t beamer \
 	    -o $(SOURCE)_slides.pdf
 
 handout: $(SOURCE).md
-	gpp -H -DHANDOUT=1 $(SOURCE).md | pandoc \
-	    --filter pandoc-citeproc \
+	pandoc $(SOURCE).md \
+	    --citeproc \
 	    -o $(SOURCE)_handout.pdf
 
 clean:
